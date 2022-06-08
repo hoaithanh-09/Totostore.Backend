@@ -1,0 +1,1 @@
+﻿global using Totostore.Backend.Domain.Common.Contracts;

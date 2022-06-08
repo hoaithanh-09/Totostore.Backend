@@ -1,0 +1,17 @@
+global using Ardalis.Specification;
+global using FluentValidation;
+global using Totostore.Backend.Application.Common.Events;
+global using Totostore.Backend.Application.Common.Exceptions;
+global using Totostore.Backend.Application.Common.FileStorage;
+global using Totostore.Backend.Application.Common.Interfaces;
+global using Totostore.Backend.Application.Common.Models;
+global using Totostore.Backend.Application.Common.Persistence;
+global using Totostore.Backend.Application.Common.Specification;
+global using Totostore.Backend.Application.Common.Validation;
+global using Totostore.Backend.Domain.Catalog;
+global using Totostore.Backend.Domain.Common;
+global using Totostore.Backend.Domain.Common.Contracts;
+global using Totostore.Backend.Shared.Notifications;
+global using MediatR;
+global using Microsoft.Extensions.Localization;
+global using Microsoft.Extensions.Logging;

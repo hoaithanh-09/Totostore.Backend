@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <RootNamespace>Totostore.Backend.Shared</RootNamespace>
+        <AssemblyName>Totostore.Backend.Shared</AssemblyName>
+    </PropertyGroup>
+</Project>
