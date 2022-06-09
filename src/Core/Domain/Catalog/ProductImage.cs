@@ -1,11 +1,11 @@
 using Totostore.Backend.Shared.Enums;
 
-namespace Totostore.Backend.Application.Catalog.ProductImages;
+namespace Totostore.Backend.Domain.Catalog;
 
-public class ProductImageDto : IDto
+public class ProductImage : AuditableEntity, IAggregateRoot
 {
-    public Guid Id { get; set; }
     public Guid ProductId { get; set; }
     public ProductImageType Type { get; set; }
     public string? Description { get; set; }
+    public virtual Product Product { get; set; } = default!;
 }

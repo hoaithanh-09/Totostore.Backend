@@ -1,4 +1,4 @@
-namespace Totostore.Backend.Application.Common.Enums;
+namespace Totostore.Backend.Shared.Enums;
 
 public enum OrderStatusEnums
 {

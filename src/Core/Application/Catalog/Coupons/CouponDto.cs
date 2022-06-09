@@ -1,11 +1,11 @@
-using Totostore.Backend.Application.Common.Enums;
+using Totostore.Backend.Shared.Enums;
 
 namespace Totostore.Backend.Application.Catalog.Coupons;
 
-public class CouponDto: IDto
+public class CouponDto : IDto
 {
     public Guid Id { get; set; }
-    public string Name { get; set; }
+    public string Name { get; set; } = default!;
     public CouponStatus Type { get; set; }
     public decimal Amount { get; set; }
     public DateTime TimeBegin { get; set; }

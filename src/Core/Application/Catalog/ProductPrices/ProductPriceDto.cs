@@ -6,5 +6,5 @@ public class ProductPriceDto : IDto
     public Guid ProductId { get; set; }
     public decimal Amount { get; set; }
     public DateTime DateCreated { get; set; } = DateTime.Now;
-    public string ProductName { get; set; }
+    public string ProductName { get; set; } = default!;
 }

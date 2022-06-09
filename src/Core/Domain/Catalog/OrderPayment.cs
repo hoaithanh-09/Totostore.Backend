@@ -1,15 +1,14 @@
 using Totostore.Backend.Shared.Enums;
 
-namespace Totostore.Backend.Application.Catalog.OrderPayments;
+namespace Totostore.Backend.Domain.Catalog;
 
-public class OrderPaymentDto : IDto
+public class OrderPayment : AuditableEntity, IAggregateRoot
 {
-    public Guid Id { get; set; }
     public Guid OrderId { get; set; }
     public Guid PaymentId { get; set; }
     public PaymentStatus Status { get; set; }
     public decimal Amount { get; set; }
     public DateTime DateCreated { get; set; } = DateTime.Now;
-    public string OrderName { get; set; } = default!;
-    public string PaymentName { get; set; } = default!;
+    public virtual Order Order { get; set; } = default!;
+    public virtual Payment Payment { get; set; } = default!;
 }
