@@ -7,7 +7,6 @@ public class NotificationDto : IDto
     public string Content { get; set; } = default!;
     public Guid? CustomerId { get; set; }
     public Guid? ShipperId { get; set; }
-    public DateTime DateCreated { get; set; } = DateTime.Now;
     public string? CustomerName { get; set; }
     public string? ShipperName { get; set; }
 }

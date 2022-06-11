@@ -11,5 +11,4 @@ public class CouponDto : IDto
     public DateTime TimeBegin { get; set; }
     public DateTime TimeEnd { get; set; }
     public int Quantity { get; set; }
-    public DateTime DateCreated { get; set; } = DateTime.Now;
 }

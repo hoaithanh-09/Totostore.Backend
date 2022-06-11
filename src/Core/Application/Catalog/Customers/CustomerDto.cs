@@ -8,5 +8,4 @@ public class CustomerDto : IDto
     public bool Gender { get; set; }
     public string Mail { get; set; } = default!;
     public string PhoneNumber { get; set; } = default!;
-    public DateTime DateCreated { get; set; } = DateTime.Now;
 }

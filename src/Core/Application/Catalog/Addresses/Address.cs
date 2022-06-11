@@ -1,9 +1,8 @@
-namespace Totostore.Backend.Application.Catalog.Adresses;
+namespace Totostore.Backend.Application.Catalog.Addresses;
 
-public class AdressDto : IDto
+public class AddressDto : IDto
 {
     public Guid Id { get; set; }
     public Guid CustomerId { get; set; } = default!;
     public string CustomerName { get; set; } = default!;
-
 }

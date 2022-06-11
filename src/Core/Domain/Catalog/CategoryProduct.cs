@@ -2,8 +2,23 @@ namespace Totostore.Backend.Domain.Catalog;
 
 public class CategoryProduct : AuditableEntity, IAggregateRoot
 {
-    public int ProductId { get; set;}
-    public int CategoryId { get; set; }
-    public virtual Product Product { get; set; }
-    public virtual Category Category { get; set; }
+    public CategoryProduct(Guid productId, Guid categoryId)
+    {
+        ProductId = productId;
+        CategoryId = categoryId;
+    }
+
+    public Guid ProductId { get; set; }
+    public Guid CategoryId { get; set; }
+    public virtual Product Product { get; set; } = default!;
+    public virtual Category Category { get; set; } = default!;
+
+    public CategoryProduct Update(Guid? productId, Guid? categoryId)
+    {
+        if (productId.HasValue && productId.Value != Guid.Empty && !ProductId.Equals(productId.Value))
+            ProductId = productId.Value;
+        if (categoryId.HasValue && categoryId.Value != Guid.Empty && !CategoryId.Equals(categoryId.Value))
+            CategoryId = categoryId.Value;
+        return this;
+    }
 }

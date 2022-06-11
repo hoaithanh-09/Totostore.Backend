@@ -9,7 +9,6 @@ public class OrderPaymentDto : IDto
     public Guid PaymentId { get; set; }
     public PaymentStatus Status { get; set; }
     public decimal Amount { get; set; }
-    public DateTime DateCreated { get; set; } = DateTime.Now;
     public string OrderName { get; set; } = default!;
     public string PaymentName { get; set; } = default!;
 }
