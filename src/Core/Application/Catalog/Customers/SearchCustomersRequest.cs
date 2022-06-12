@@ -11,11 +11,11 @@ public class CustomersBySearchRequestSpec : EntitiesByPaginationFilterSpec<Custo
         Query.OrderBy(c => c.Name, !request.HasOrderBy());
 }
 
-public class SearchCategoriesRequestHandler : IRequestHandler<SearchCustomersRequest, PaginationResponse<CustomerDto>>
+public class SearchCustomersRequestHandler : IRequestHandler<SearchCustomersRequest, PaginationResponse<CustomerDto>>
 {
     private readonly IReadRepository<Customer> _repository;
 
-    public SearchCategoriesRequestHandler(IReadRepository<Customer> repository) => _repository = repository;
+    public SearchCustomersRequestHandler(IReadRepository<Customer> repository) => _repository = repository;
 
     public async Task<PaginationResponse<CustomerDto>> Handle(SearchCustomersRequest request,
         CancellationToken cancellationToken)

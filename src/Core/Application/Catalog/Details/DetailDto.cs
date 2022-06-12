@@ -4,8 +4,6 @@ public class DetailDto : IDto
 {
     public Guid Id { get; set; }
     public string? Description { get; set; }
-    public Guid SupplierId { get; set; } = default!;
-    public string SupplierName { get; set; } = default!;
     public string? ScreenSize { get; set; }
     public string? ItemWeight { get; set; }
     public string? ComputerMemoryType { get; set; }

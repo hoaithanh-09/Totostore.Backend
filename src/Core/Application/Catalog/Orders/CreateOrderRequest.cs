@@ -1,6 +1,3 @@
-using Totostore.Backend.Application.Catalog.Addresses;
-using Totostore.Backend.Application.Catalog.Customers;
-using Totostore.Backend.Application.Catalog.Shippers;
 using Totostore.Backend.Domain.Common.Events;
 
 namespace Totostore.Backend.Application.Catalog.Orders;
@@ -12,9 +9,6 @@ public class CreateOrderRequest : IRequest<Guid>
     public Guid CustomerId { get; set; }
     public Guid? ShipperId { get; set; }
     public Guid AddressDeliveryId { get; set; }
-    public CustomerDto Customer { get; set; } = default!;
-    public ShipperDto Shipper { get; set; } = default!;
-    public AddressDto Address { get; set; } = default!;
 }
 
 public class CreateOrderRequestValidator : CustomValidator<CreateOrderRequest>

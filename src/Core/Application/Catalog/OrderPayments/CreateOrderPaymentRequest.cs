@@ -1,5 +1,3 @@
-using Totostore.Backend.Application.Catalog.Orders;
-using Totostore.Backend.Application.Catalog.Payments;
 using Totostore.Backend.Domain.Common.Events;
 using Totostore.Backend.Shared.Enums;
 
@@ -11,8 +9,6 @@ public class CreateOrderPaymentRequest : IRequest<Guid>
     public Guid PaymentId { get; set; }
     public PaymentStatus Status { get; set; }
     public decimal Amount { get; set; }
-    public OrderDto Order { get; set; } = default!;
-    public PaymentDto Payment { get; set; } = default!;
 }
 
 public class CreateOrderPaymentRequestValidator : CustomValidator<CreateOrderPaymentRequest>

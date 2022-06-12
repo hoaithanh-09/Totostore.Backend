@@ -1,6 +1,3 @@
-using Totostore.Backend.Application.Catalog.Orders;
-using Totostore.Backend.Application.Catalog.ProductPrices;
-using Totostore.Backend.Application.Catalog.Products;
 using Totostore.Backend.Domain.Common.Events;
 
 namespace Totostore.Backend.Application.Catalog.OrderProducts;
@@ -11,9 +8,6 @@ public class CreateOrderProductRequest : IRequest<Guid>
     public Guid OrderId { get; set; }
     public Guid ProductPriceId { get; set; }
     public int Quantity { get; set; }
-    public ProductDto Product { get; set; } = default!;
-    public OrderDto Order { get; set; } = default!;
-    public ProductPriceDto ProductPrice { get; set; } = default!;
 }
 
 public class CreateOrderProductRequestValidator : CustomValidator<CreateOrderProductRequest>

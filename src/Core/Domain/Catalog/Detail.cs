@@ -2,14 +2,13 @@ namespace Totostore.Backend.Domain.Catalog;
 
 public class Detail : AuditableEntity, IAggregateRoot
 {
-    public Detail(string? description, Guid supplierId, string? screenSize, string? itemWeight,
+    public Detail(string? description, string? screenSize, string? itemWeight,
         string? computerMemoryType, string? productDimensions, string? processorBrand,
         string? flashMemorySize, int? processorCount, string? cpuModel, string? cpuModelManufacturer, string? hardDisk,
         string? operatingSystem, string? ramType, string? itemModelNumber, string? color,
         string? series, string? displayResolutionMaximum)
     {
         Description = description;
-        SupplierId = supplierId;
         ScreenSize = screenSize;
         ItemWeight = itemWeight;
         ComputerMemoryType = computerMemoryType;
@@ -29,7 +28,6 @@ public class Detail : AuditableEntity, IAggregateRoot
     }
 
     public string? Description { get; set; }
-    public Guid SupplierId { get; set; } = default!;
     public string? ScreenSize { get; set; }
     public string? ItemWeight { get; set; }
     public string? ComputerMemoryType { get; set; }
@@ -47,17 +45,14 @@ public class Detail : AuditableEntity, IAggregateRoot
     public string? Series { get; set; }
     public string? DisplayResolutionMaximum { get; set; }
     public virtual List<ProductDetail> ProductDetails { get; set; } = default!;
-    public virtual Supplier Supplier { get; set; } = default!;
 
-    public Detail Update(string? name, string? description, Guid? supplierId, string? screenSize, string? itemWeight,
+    public Detail Update(string? description, string? screenSize, string? itemWeight,
         string? computerMemoryType, string? productDimensions, string? processorBrand,
         string? flashMemorySize, int? processorCount, string? cpuModel, string? cpuModelManufacturer, string? hardDisk,
         string? operatingSystem, string? ramType, string? itemModelNumber, string? color,
         string? series, string? displayResolutionMaximum)
     {
         if (description is not null && Description?.Equals(description) is not true) Description = description;
-        if (supplierId.HasValue && supplierId.Value != Guid.Empty && !SupplierId.Equals(supplierId.Value))
-            SupplierId = supplierId.Value;
         if (screenSize is not null && ScreenSize?.Equals(screenSize) is not true) ScreenSize = screenSize;
         if (itemWeight is not null && ItemWeight?.Equals(itemWeight) is not true) ItemWeight = itemWeight;
         if (computerMemoryType is not null && ComputerMemoryType?.Equals(computerMemoryType) is not true)
