@@ -14,5 +14,5 @@ public class OrderDetailsDto : IDto
     public Guid AddressDeliveryId { get; set; }
     public CustomerDto Customer { get; set; } = default!;
     public ShipperDto Shipper { get; set; } = default!;
-    public AddressDto Address { get; set; } = default!;
+    public AddressDto AddressDelivery { get; set; } = default!;
 }

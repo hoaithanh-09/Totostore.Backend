@@ -7,7 +7,6 @@ public class UpdateSupplierRequest : IRequest<Guid>
     public Guid Id { get; set; }
     public string Name { get; set; } = default!;
     public string? Description { get; set; }
-    public Guid? AddressId { get; set; }
 }
 
 public class UpdateSupplierRequestValidator : CustomValidator<UpdateSupplierRequest>
@@ -38,7 +37,7 @@ public class UpdateSupplierRequestHandler : IRequestHandler<UpdateSupplierReques
 
         _ = supplier ?? throw new NotFoundException(string.Format(_localizer["supplier.notfound"], request.Id));
 
-        supplier.Update(request.Name, request.Description, request.AddressId);
+        supplier.Update(request.Name, request.Description);
         // Add Domain Events to be raised after the commit
         supplier.DomainEvents.Add(EntityUpdatedEvent.WithEntity(supplier));
 

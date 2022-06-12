@@ -9,6 +9,7 @@ public class CreateCustomerRequest : IRequest<Guid>
     public bool Gender { get; set; }
     public string Mail { get; set; } = default!;
     public string PhoneNumber { get; set; } = default!;
+    public Guid AddressId { get; set; }
 }
 
 public class CreateCustomerRequestValidator : CustomValidator<CreateCustomerRequest>
@@ -32,7 +33,8 @@ public class CreateCustomerRequestHandler : IRequestHandler<CreateCustomerReques
 
     public async Task<Guid> Handle(CreateCustomerRequest request, CancellationToken cancellationToken)
     {
-        var customer = new Customer(request.Name, request.Dob, request.Gender, request.Mail, request.PhoneNumber);
+        var customer = new Customer(request.Name, request.Dob, request.Gender, request.Mail, request.PhoneNumber,
+            request.AddressId);
 
         // Add Domain Events to be raised after the commit
         customer.DomainEvents.Add(EntityCreatedEvent.WithEntity(customer));

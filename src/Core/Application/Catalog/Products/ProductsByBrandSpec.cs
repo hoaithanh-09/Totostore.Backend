@@ -2,6 +2,6 @@
 
 public class ProductsByBrandSpec : Specification<Product>
 {
-    public ProductsByBrandSpec(Guid brandId) =>
-        Query.Where(p => p.BrandId == brandId);
+    public ProductsByBrandSpec(Guid supplierId) =>
+        Query.Where(p => p.SupplierId == supplierId);
 }

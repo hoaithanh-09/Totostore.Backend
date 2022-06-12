@@ -6,7 +6,6 @@ public class CreateSupplierRequest : IRequest<Guid>
 {
     public string Name { get; set; } = default!;
     public string? Description { get; set; }
-    public Guid? AddressId { get; set; }
 }
 
 public class CreateSupplierRequestValidator : CustomValidator<CreateSupplierRequest>
@@ -30,7 +29,7 @@ public class CreateSupplierRequestHandler : IRequestHandler<CreateSupplierReques
 
     public async Task<Guid> Handle(CreateSupplierRequest request, CancellationToken cancellationToken)
     {
-        var supplier = new Supplier(request.Name, request.Description, request.AddressId);
+        var supplier = new Supplier(request.Name, request.Description);
 
         // Add Domain Events to be raised after the commit
         supplier.DomainEvents.Add(EntityCreatedEvent.WithEntity(supplier));

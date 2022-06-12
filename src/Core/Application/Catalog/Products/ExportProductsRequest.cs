@@ -4,15 +4,15 @@ namespace Totostore.Backend.Application.Catalog.Products;
 
 public class ExportProductsRequest : BaseFilter, IRequest<Stream>
 {
-    public Guid? BrandId { get; set; }
+    public Guid? SupplierId { get; set; }
     public decimal? MinimumRate { get; set; }
     public decimal? MaximumRate { get; set; }
 }
 
 public class ExportProductsRequestHandler : IRequestHandler<ExportProductsRequest, Stream>
 {
-    private readonly IReadRepository<Product> _repository;
     private readonly IExcelWriter _excelWriter;
+    private readonly IReadRepository<Product> _repository;
 
     public ExportProductsRequestHandler(IReadRepository<Product> repository, IExcelWriter excelWriter)
     {
@@ -35,8 +35,8 @@ public class ExportProductsWithBrandsSpecification : EntitiesByBaseFilterSpec<Pr
     public ExportProductsWithBrandsSpecification(ExportProductsRequest request)
         : base(request) =>
         Query
-            .Include(p => p.Brand)
-            .Where(p => p.BrandId.Equals(request.BrandId!.Value), request.BrandId.HasValue)
+            .Include(p => p.Supplier)
+            .Where(p => p.SupplierId.Equals(request.SupplierId!.Value), request.SupplierId.HasValue)
             .Where(p => p.Rate >= request.MinimumRate!.Value, request.MinimumRate.HasValue)
             .Where(p => p.Rate <= request.MaximumRate!.Value, request.MaximumRate.HasValue);
 }

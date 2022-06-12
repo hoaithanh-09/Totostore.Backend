@@ -2,7 +2,7 @@ namespace Totostore.Backend.Application.Catalog.Products;
 
 public class CreateProductRequestValidator : CustomValidator<CreateProductRequest>
 {
-    public CreateProductRequestValidator(IReadRepository<Product> productRepo, IReadRepository<Brand> brandRepo,
+    public CreateProductRequestValidator(IReadRepository<Product> productRepo, IReadRepository<Supplier> supplierRepo,
         IStringLocalizer<CreateProductRequestValidator> localizer)
     {
         RuleFor(p => p.Name)
@@ -14,12 +14,9 @@ public class CreateProductRequestValidator : CustomValidator<CreateProductReques
         RuleFor(p => p.Rate)
             .GreaterThanOrEqualTo(1);
 
-        RuleFor(p => p.Image)
-            .SetNonNullableValidator(new FileUploadRequestValidator());
-
-        RuleFor(p => p.BrandId)
+        RuleFor(p => p.SupplierId)
             .NotEmpty()
-            .MustAsync(async (id, ct) => await brandRepo.GetByIdAsync(id, ct) is not null)
-            .WithMessage((_, id) => string.Format(localizer["brand.notfound"], id));
+            .MustAsync(async (id, ct) => await supplierRepo.GetByIdAsync(id, ct) is not null)
+            .WithMessage((_, id) => string.Format(localizer["supplier.notfound"], id));
     }
 }
