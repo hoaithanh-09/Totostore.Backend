@@ -1,6 +1,6 @@
 namespace Totostore.Backend.Application.Catalog.ProductPrices;
 
-public class GetProductPriceRequest : IRequest<ProductPriceDto>
+public class GetProductPriceRequest : IRequest<ProductPriceDetailsDto>
 {
     public GetProductPriceRequest(Guid id) => Id = id;
     public Guid Id { get; set; }
@@ -13,7 +13,7 @@ public class ProductPriceByIdSpec : Specification<ProductPrice, ProductPriceDto>
             .Include(p => p.Product);
 }
 
-public class GetProductPriceRequestHandler : IRequestHandler<GetProductPriceRequest, ProductPriceDto>
+public class GetProductPriceRequestHandler : IRequestHandler<GetProductPriceRequest, ProductPriceDetailsDto>
 {
     private readonly IStringLocalizer<GetProductPriceRequestHandler> _localizer;
     private readonly IRepository<ProductPrice> _repository;
@@ -22,8 +22,8 @@ public class GetProductPriceRequestHandler : IRequestHandler<GetProductPriceRequ
         IStringLocalizer<GetProductPriceRequestHandler> localizer) =>
         (_repository, _localizer) = (repository, localizer);
 
-    public async Task<ProductPriceDto> Handle(GetProductPriceRequest request, CancellationToken cancellationToken) =>
+    public async Task<ProductPriceDetailsDto> Handle(GetProductPriceRequest request, CancellationToken cancellationToken) =>
         await _repository.GetBySpecAsync(
-            (ISpecification<ProductPrice, ProductPriceDto>)new ProductPriceByIdSpec(request.Id), cancellationToken)
+            (ISpecification<ProductPrice, ProductPriceDetailsDto>)new ProductPriceByIdSpec(request.Id), cancellationToken)
         ?? throw new NotFoundException(string.Format(_localizer["productPrice.notfound"], request.Id));
 }

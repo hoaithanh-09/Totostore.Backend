@@ -3,7 +3,7 @@ using Totostore.Backend.Shared.Enums;
 
 namespace Totostore.Backend.Application.Catalog.ProductImages;
 
-public class ProductImageDetailsRequest : IDto
+public class ProductImageDetailsDto : IDto
 {
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }

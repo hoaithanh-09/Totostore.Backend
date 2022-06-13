@@ -1,6 +1,6 @@
 namespace Totostore.Backend.Application.Catalog.OrderPayments;
 
-public class GetOrderPaymentRequest : IRequest<OrderPaymentDto>
+public class GetOrderPaymentRequest : IRequest<OrderPaymentDetailsDto>
 {
     public GetOrderPaymentRequest(Guid id) => Id = id;
     public Guid Id { get; set; }
@@ -14,7 +14,7 @@ public class OrderPaymentByIdSpec : Specification<OrderPayment, OrderPaymentDto>
             .Include(p => p.Payment);
 }
 
-public class GetOrderPaymentRequestHandler : IRequestHandler<GetOrderPaymentRequest, OrderPaymentDto>
+public class GetOrderPaymentRequestHandler : IRequestHandler<GetOrderPaymentRequest, OrderPaymentDetailsDto>
 {
     private readonly IStringLocalizer<GetOrderPaymentRequestHandler> _localizer;
     private readonly IRepository<OrderPayment> _repository;
@@ -23,8 +23,8 @@ public class GetOrderPaymentRequestHandler : IRequestHandler<GetOrderPaymentRequ
         IStringLocalizer<GetOrderPaymentRequestHandler> localizer) =>
         (_repository, _localizer) = (repository, localizer);
 
-    public async Task<OrderPaymentDto> Handle(GetOrderPaymentRequest request, CancellationToken cancellationToken) =>
+    public async Task<OrderPaymentDetailsDto> Handle(GetOrderPaymentRequest request, CancellationToken cancellationToken) =>
         await _repository.GetBySpecAsync(
-            (ISpecification<OrderPayment, OrderPaymentDto>)new OrderPaymentByIdSpec(request.Id), cancellationToken)
+            (ISpecification<OrderPayment, OrderPaymentDetailsDto>)new OrderPaymentByIdSpec(request.Id), cancellationToken)
         ?? throw new NotFoundException(string.Format(_localizer["orderPayment.notfound"], request.Id));
 }

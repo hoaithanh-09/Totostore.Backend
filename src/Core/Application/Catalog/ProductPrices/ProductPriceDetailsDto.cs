@@ -2,7 +2,7 @@ using Totostore.Backend.Application.Catalog.Products;
 
 namespace Totostore.Backend.Application.Catalog.ProductPrices;
 
-public class ProductPriceDetailsRequest : IDto
+public class ProductPriceDetailsDto : IDto
 {
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }

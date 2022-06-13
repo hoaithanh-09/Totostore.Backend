@@ -1,6 +1,6 @@
 namespace Totostore.Backend.Application.Catalog.ProductImages;
 
-public class GetProductImageRequest : IRequest<ProductImageDto>
+public class GetProductImageRequest : IRequest<ProductImageDetailsDto>
 {
     public GetProductImageRequest(Guid id) => Id = id;
     public Guid Id { get; set; }
@@ -13,7 +13,7 @@ public class ProductImageByIdSpec : Specification<ProductImage, ProductImageDto>
             .Include(p => p.Product);
 }
 
-public class GetProductImageRequestHandler : IRequestHandler<GetProductImageRequest, ProductImageDto>
+public class GetProductImageRequestHandler : IRequestHandler<GetProductImageRequest, ProductImageDetailsDto>
 {
     private readonly IStringLocalizer<GetProductImageRequestHandler> _localizer;
     private readonly IRepository<ProductImage> _repository;
@@ -22,8 +22,8 @@ public class GetProductImageRequestHandler : IRequestHandler<GetProductImageRequ
         IStringLocalizer<GetProductImageRequestHandler> localizer) =>
         (_repository, _localizer) = (repository, localizer);
 
-    public async Task<ProductImageDto> Handle(GetProductImageRequest request, CancellationToken cancellationToken) =>
+    public async Task<ProductImageDetailsDto> Handle(GetProductImageRequest request, CancellationToken cancellationToken) =>
         await _repository.GetBySpecAsync(
-            (ISpecification<ProductImage, ProductImageDto>)new ProductImageByIdSpec(request.Id), cancellationToken)
+            (ISpecification<ProductImage, ProductImageDetailsDto>)new ProductImageByIdSpec(request.Id), cancellationToken)
         ?? throw new NotFoundException(string.Format(_localizer["productImage.notfound"], request.Id));
 }
