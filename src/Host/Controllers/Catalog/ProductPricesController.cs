@@ -28,4 +28,23 @@ public class ProductPricesController : VersionedApiController
     {
         return Mediator.Send(new DeleteProductPriceRequest(id));
     }
+
+    [HttpPut("{id:guid}")]
+    [MustHavePermission(FSHAction.Update, FSHResource.ProductPrices)]
+    [OpenApiOperation("Update a productPrice.", "")]
+    public async Task<ActionResult<Guid>> UpdateAsync(UpdateProductPriceRequest request, Guid id)
+    {
+        return id != request.Id
+            ? BadRequest()
+            : Ok(await Mediator.Send(request));
+    }
+
+
+    [HttpPost("search")]
+    [MustHavePermission(FSHAction.Search, FSHResource.ProductPrices)]
+    [OpenApiOperation("Search productPrices using available filters.", "")]
+    public Task<PaginationResponse<ProductPriceDto>> SearchAsync(SearchProductPricesRequest request)
+    {
+        return Mediator.Send(request);
+    }
 }

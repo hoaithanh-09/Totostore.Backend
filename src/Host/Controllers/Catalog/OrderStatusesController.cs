@@ -29,4 +29,24 @@ public class OrderStatusesController : VersionedApiController
     {
         return Mediator.Send(new DeleteOrderStatusRequest(id));
     }
+
+
+    [HttpPut("{id:guid}")]
+    [MustHavePermission(FSHAction.Update, FSHResource.OrderStatuses)]
+    [OpenApiOperation("Update a orderStatus.", "")]
+    public async Task<ActionResult<Guid>> UpdateAsync(UpdateOrderStatusRequest request, Guid id)
+    {
+        return id != request.Id
+            ? BadRequest()
+            : Ok(await Mediator.Send(request));
+    }
+
+
+    [HttpPost("search")]
+    [MustHavePermission(FSHAction.Search, FSHResource.OrderStatuses)]
+    [OpenApiOperation("Search orderStatus using available filters.", "")]
+    public Task<PaginationResponse<OrderStatusDto>> SearchAsync(SearchOrderStatusRequest request)
+    {
+        return Mediator.Send(request);
+    }
 }

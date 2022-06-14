@@ -2,7 +2,7 @@ using Totostore.Backend.Application.Catalog.ProductDetails;
 
 namespace Totostore.Backend.Host.Controllers.Catalog;
 
-public class ProductDetailsController:VersionedApiController
+public class ProductDetailsController : VersionedApiController
 {
     [HttpGet("{id:guid}")]
     [MustHavePermission(FSHAction.View, FSHResource.ProductDetails)]

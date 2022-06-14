@@ -28,4 +28,12 @@ public class CategoryProductsController : VersionedApiController
     {
         return Mediator.Send(new DeleteCategoryProductRequest(id));
     }
+
+    [HttpPost("search")]
+    [MustHavePermission(FSHAction.Search, FSHResource.CategoryProducts)]
+    [OpenApiOperation("Search categoryProducts using available filters.", "")]
+    public Task<PaginationResponse<CategoryProductDto>> SearchAsync(SearchCategoryProductsRequest request)
+    {
+        return Mediator.Send(request);
+    }
 }

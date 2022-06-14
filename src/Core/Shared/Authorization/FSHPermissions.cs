@@ -106,6 +106,8 @@ public static class FSHPermissions
         new("View CategoryProducts", FSHAction.View, FSHResource.CategoryProducts, IsBasic: true),
         new("Create CategoryProducts", FSHAction.Create, FSHResource.CategoryProducts),
         new("Delete CategoryProducts", FSHAction.Delete, FSHResource.CategoryProducts),
+        new("Search CategoryProducts", FSHAction.Search, FSHResource.CategoryProducts, IsBasic: true),
+        new("Update CategoryProducts", FSHAction.Update, FSHResource.CategoryProducts),
 
         new("View Coupons", FSHAction.View, FSHResource.Coupons, IsBasic: true),
         new("Search Coupons", FSHAction.Search, FSHResource.Coupons, IsBasic: true),
@@ -138,20 +140,28 @@ public static class FSHPermissions
         new("Delete Orders", FSHAction.Delete, FSHResource.Orders),
 
         new("View OrderCoupons", FSHAction.View, FSHResource.OrderCoupons, IsBasic: true),
+        new("Search OrderCoupons", FSHAction.Search, FSHResource.OrderCoupons, IsBasic: true),
         new("Create OrderCoupons", FSHAction.Create, FSHResource.OrderCoupons),
         new("Delete OrderCoupons", FSHAction.Delete, FSHResource.OrderCoupons),
+        new("Update OrderCoupons", FSHAction.Update, FSHResource.OrderCoupons),
 
         new("View OrderPayments", FSHAction.View, FSHResource.OrderPayments, IsBasic: true),
+        new("Search OrderPayments", FSHAction.Search, FSHResource.OrderPayments, IsBasic: true),
         new("Create OrderPayments", FSHAction.Create, FSHResource.OrderPayments),
         new("Delete OrderPayments", FSHAction.Delete, FSHResource.OrderPayments),
+        new("Update OrderPayments", FSHAction.Update, FSHResource.OrderPayments),
 
         new("View OrderStatuses", FSHAction.View, FSHResource.OrderStatuses, IsBasic: true),
+        new("Search OrderStatuses", FSHAction.Search, FSHResource.OrderStatuses, IsBasic: true),
         new("Create OrderStatuses", FSHAction.Create, FSHResource.OrderStatuses),
         new("Delete OrderStatuses", FSHAction.Delete, FSHResource.OrderStatuses),
+        new("Update OrderStatuses", FSHAction.Update, FSHResource.OrderStatuses),
 
         new("View OrderProducts", FSHAction.View, FSHResource.OrderProducts, IsBasic: true),
+        new("Search OrderProducts", FSHAction.Search, FSHResource.OrderProducts, IsBasic: true),
         new("Create OrderProducts", FSHAction.Create, FSHResource.OrderProducts),
         new("Delete OrderProducts", FSHAction.Delete, FSHResource.OrderProducts),
+        new("Update OrderProducts", FSHAction.Update, FSHResource.OrderProducts),
 
         new("View Payments", FSHAction.View, FSHResource.Payments, IsBasic: true),
         new("Search Payments", FSHAction.Search, FSHResource.Payments, IsBasic: true),
@@ -160,16 +170,22 @@ public static class FSHPermissions
         new("Delete Payments", FSHAction.Delete, FSHResource.Payments),
 
         new("View ProductDetails", FSHAction.View, FSHResource.ProductDetails, IsBasic: true),
+        new("Search ProductDetails", FSHAction.Search, FSHResource.ProductDetails, IsBasic: true),
         new("Create ProductDetails", FSHAction.Create, FSHResource.ProductDetails),
         new("Delete ProductDetails", FSHAction.Delete, FSHResource.ProductDetails),
+        new("Update ProductDetails", FSHAction.Update, FSHResource.ProductDetails),
 
         new("View ProductImages", FSHAction.View, FSHResource.ProductImages, IsBasic: true),
+        new("Search ProductImages", FSHAction.Search, FSHResource.ProductImages, IsBasic: true),
         new("Create ProductImages", FSHAction.Create, FSHResource.ProductImages),
         new("Delete ProductImages", FSHAction.Delete, FSHResource.ProductImages),
+        new("Update ProductImages", FSHAction.Update, FSHResource.ProductImages),
 
         new("View ProductPrices", FSHAction.View, FSHResource.ProductPrices, IsBasic: true),
+        new("Search ProductPrices", FSHAction.Search, FSHResource.ProductPrices, IsBasic: true),
         new("Create ProductPrices", FSHAction.Create, FSHResource.ProductPrices),
         new("Delete ProductPrices", FSHAction.Delete, FSHResource.ProductPrices),
+        new("Update ProductPrices", FSHAction.Update, FSHResource.ProductPrices),
 
         new("View Shippers", FSHAction.View, FSHResource.Shippers, IsBasic: true),
         new("Search Shippers", FSHAction.Search, FSHResource.Shippers, IsBasic: true),

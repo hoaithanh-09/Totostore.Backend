@@ -21,7 +21,7 @@ public class DeleteBrandRequestHandler : IRequestHandler<DeleteBrandRequest, Gui
 
     public async Task<Guid> Handle(DeleteBrandRequest request, CancellationToken cancellationToken)
     {
-        if (await _productRepo.AnyAsync(new ProductsByBrandSpec(request.Id), cancellationToken))
+        if (await _productRepo.AnyAsync(new ProductsBySupplierSpec(request.Id), cancellationToken))
         {
             throw new ConflictException(_localizer["brand.cannotbedeleted"]);
         }

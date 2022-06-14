@@ -2,15 +2,15 @@ using Totostore.Backend.Application.Catalog.Orders;
 
 namespace Totostore.Backend.Host.Controllers.Catalog;
 
-public class OrdersController:VersionedApiController
+public class OrdersController : VersionedApiController
 {
-    // [HttpPost("search")]
-    // [MustHavePermission(FSHAction.Search, FSHResource.Orders)]
-    // [OpenApiOperation("Search orders using available filters.", "")]
-    // public Task<PaginationResponse<OrderDto>> SearchAsync(SearchOrderRequest request)
-    // {
-    //     return Mediator.Send(request);
-    // }
+    [HttpPost("search")]
+    [MustHavePermission(FSHAction.Search, FSHResource.Orders)]
+    [OpenApiOperation("Search orders using available filters.", "")]
+    public Task<PaginationResponse<OrderDto>> SearchAsync(SearchOrdersRequest request)
+    {
+        return Mediator.Send(request);
+    }
 
     [HttpGet("{id:guid}")]
     [MustHavePermission(FSHAction.View, FSHResource.Orders)]

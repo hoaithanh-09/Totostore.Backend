@@ -28,4 +28,12 @@ public class ProductImagesController:VersionedApiController
     {
         return Mediator.Send(new DeleteProductImageRequest(id));
     }
+    [HttpPost("search")]
+    [MustHavePermission(FSHAction.Search, FSHResource.ProductImages)]
+    [OpenApiOperation("Search productImages using available filters.", "")]
+    public Task<PaginationResponse<ProductImageDto>> SearchAsync(SearchProductImagesRequest request)
+    {
+        return Mediator.Send(request);
+    }
+
 }

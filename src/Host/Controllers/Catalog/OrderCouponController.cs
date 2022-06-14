@@ -28,4 +28,12 @@ public class OrderCouponController : VersionedApiController
     {
         return Mediator.Send(new DeleteOrderCouponRequest(id));
     }
+
+    [HttpPost("search")]
+    [MustHavePermission(FSHAction.Search, FSHResource.OrderCoupons)]
+    [OpenApiOperation("Search orderCoupons using available filters.", "")]
+    public Task<PaginationResponse<OrderCouponDto>> SearchAsync(SearchOrderCouponsRequest request)
+    {
+        return Mediator.Send(request);
+    }
 }

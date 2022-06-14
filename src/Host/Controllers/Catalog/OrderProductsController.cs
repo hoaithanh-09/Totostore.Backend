@@ -28,4 +28,11 @@ public class OrderProductsController:VersionedApiController
     {
         return Mediator.Send(new DeleteOrderProductRequest(id));
     }
+    [HttpPost("search")]
+    [MustHavePermission(FSHAction.Search, FSHResource.OrderProducts)]
+    [OpenApiOperation("Search orderProducts using available filters.", "")]
+    public Task<PaginationResponse<OrderProductDto>> SearchAsync(SearchOrderProductsRequest request)
+    {
+        return Mediator.Send(request);
+    }
 }
