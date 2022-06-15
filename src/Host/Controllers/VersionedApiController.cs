@@ -1,6 +1,6 @@
 ﻿namespace Totostore.Backend.Host.Controllers;
 
-[Route("api/v{version:apiVersion}/[controller]")]
+[Route("v{version:apiVersion}/[controller]")]
 public class VersionedApiController : BaseApiController
 {
 }
