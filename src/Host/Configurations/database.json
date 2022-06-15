@@ -1,6 +1,6 @@
 {
   "DatabaseSettings": {
     "DBProvider": "mssql",
-    "ConnectionString": "Data Source=localhost,1433;Initial Catalog=ToToStore;User=sa;Password=SuperSecurePassword123!;MultipleActiveResultSets=true"
+    "ConnectionString": "Data Source=localhost,1433;Initial Catalog=ToToStore;User=sa;Password=Totoro_Store_Computer@2022;MultipleActiveResultSets=true"
   }
 }
