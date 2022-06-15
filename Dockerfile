@@ -34,8 +34,8 @@ COPY --from=build /app/publish .
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
-ENV ASPNETCORE_URLS=https://+:5050;http://+:1109
-EXPOSE 5050
+ENV ASPNETCORE_URLS=http://+:1109
+#EXPOSE 5050
 EXPOSE 1109
 
 ENTRYPOINT ["dotnet", "Totostore.Backend.Host.dll"]

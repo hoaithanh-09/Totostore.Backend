@@ -11,12 +11,12 @@ services:
       - "DatabaseSettings__DBProvider=mssql"
       - "HangfireSettings__Storage__ConnectionString=Server=db;Database=ToToStore;User=sa;Password=Totoro_Store_Computer@2022;MultipleActiveResultSets=true"
       - "HangfireSettings__Storage__StorageProvider=mssql"
-      - "ASPNETCORE_Kestrel__Certificates__Default__Password=Totoro_Store_Computer@2022"
-      - "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/DN.Host.pfx"
+    #      - "ASPNETCORE_Kestrel__Certificates__Default__Password=Totoro_Store_Computer@2022"
+    #      - "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/DN.Host.pfx"
     volumes:
       - ~/.aspnet/https:/https:ro
     ports:
-      - "5050:5050"
+      #      - "5050:5050"
       - "1109:1109"
     depends_on:
       - db
