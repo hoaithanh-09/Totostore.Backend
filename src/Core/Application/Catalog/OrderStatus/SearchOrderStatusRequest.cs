@@ -1,6 +1,6 @@
 using Totostore.Backend.Shared.Enums;
 
-namespace Totostore.Backend.Application.Catalog.OrderStatuses;
+namespace Totostore.Backend.Application.Catalog.OrderStatus;
 
 public class SearchOrderStatusRequest : PaginationFilter, IRequest<PaginationResponse<OrderStatusDto>>
 {
@@ -8,7 +8,7 @@ public class SearchOrderStatusRequest : PaginationFilter, IRequest<PaginationRes
     public Guid? OrderId { get; set; }
 }
 
-public class OrderStatusBySearchRequestSpec : EntitiesByPaginationFilterSpec<OrderStatus, OrderStatusDto>
+public class OrderStatusBySearchRequestSpec : EntitiesByPaginationFilterSpec<Domain.Catalog.OrderStatus, OrderStatusDto>
 {
     public OrderStatusBySearchRequestSpec(SearchOrderStatusRequest request)
         : base(request) =>
@@ -20,9 +20,9 @@ public class OrderStatusBySearchRequestSpec : EntitiesByPaginationFilterSpec<Ord
 
 public class SearchOrdersRequestHandler : IRequestHandler<SearchOrderStatusRequest, PaginationResponse<OrderStatusDto>>
 {
-    private readonly IReadRepository<OrderStatus> _repository;
+    private readonly IReadRepository<Domain.Catalog.OrderStatus> _repository;
 
-    public SearchOrdersRequestHandler(IReadRepository<OrderStatus> repository) => _repository = repository;
+    public SearchOrdersRequestHandler(IReadRepository<Domain.Catalog.OrderStatus> repository) => _repository = repository;
 
     public async Task<PaginationResponse<OrderStatusDto>> Handle(SearchOrderStatusRequest request,
         CancellationToken cancellationToken)

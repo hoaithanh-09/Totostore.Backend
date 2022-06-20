@@ -37,7 +37,7 @@ public static class FSHResource
     public const string Orders = nameof(Orders);
     public const string OrderCoupons = nameof(OrderCoupons);
     public const string OrderPayments = nameof(OrderPayments);
-    public const string OrderStatuses = nameof(OrderStatuses);
+    public const string OrderStatus = nameof(OrderStatus);
     public const string OrderProducts = nameof(OrderProducts);
     public const string Payments = nameof(Payments);
     public const string ProductDetails = nameof(ProductDetails);
@@ -151,11 +151,11 @@ public static class FSHPermissions
         new("Delete OrderPayments", FSHAction.Delete, FSHResource.OrderPayments),
         new("Update OrderPayments", FSHAction.Update, FSHResource.OrderPayments),
 
-        new("View OrderStatuses", FSHAction.View, FSHResource.OrderStatuses, IsBasic: true),
-        new("Search OrderStatuses", FSHAction.Search, FSHResource.OrderStatuses, IsBasic: true),
-        new("Create OrderStatuses", FSHAction.Create, FSHResource.OrderStatuses),
-        new("Delete OrderStatuses", FSHAction.Delete, FSHResource.OrderStatuses),
-        new("Update OrderStatuses", FSHAction.Update, FSHResource.OrderStatuses),
+        new("View OrderStatus", FSHAction.View, FSHResource.OrderStatus, IsBasic: true),
+        new("Search OrderStatus", FSHAction.Search, FSHResource.OrderStatus, IsBasic: true),
+        new("Create OrderStatus", FSHAction.Create, FSHResource.OrderStatus),
+        new("Delete OrderStatus", FSHAction.Delete, FSHResource.OrderStatus),
+        new("Update OrderStatus", FSHAction.Update, FSHResource.OrderStatus),
 
         new("View OrderProducts", FSHAction.View, FSHResource.OrderProducts, IsBasic: true),
         new("Search OrderProducts", FSHAction.Search, FSHResource.OrderProducts, IsBasic: true),

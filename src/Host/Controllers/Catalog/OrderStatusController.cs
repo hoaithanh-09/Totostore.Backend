@@ -1,12 +1,12 @@
 using Totostore.Backend.Application.Catalog.Orders;
-using Totostore.Backend.Application.Catalog.OrderStatuses;
+using Totostore.Backend.Application.Catalog.OrderStatus;
 
 namespace Totostore.Backend.Host.Controllers.Catalog;
 
-public class OrderStatusesController : VersionedApiController
+public class OrderStatusController : VersionedApiController
 {
     [HttpGet("{id:guid}")]
-    [MustHavePermission(FSHAction.View, FSHResource.OrderStatuses)]
+    [MustHavePermission(FSHAction.View, FSHResource.OrderStatus)]
     [OpenApiOperation("Get orderStatus details.", "")]
     public Task<OrderStatusDetailsDto> GetAsync(Guid id)
     {
@@ -14,7 +14,7 @@ public class OrderStatusesController : VersionedApiController
     }
 
     [HttpPost]
-    [MustHavePermission(FSHAction.Create, FSHResource.OrderStatuses)]
+    [MustHavePermission(FSHAction.Create, FSHResource.OrderStatus)]
     [OpenApiOperation("Create a new orderStatus.", "")]
     public Task<Guid> CreateAsync(CreateOrderStatusRequest request)
     {
@@ -23,7 +23,7 @@ public class OrderStatusesController : VersionedApiController
 
 
     [HttpDelete("{id:guid}")]
-    [MustHavePermission(FSHAction.Delete, FSHResource.OrderStatuses)]
+    [MustHavePermission(FSHAction.Delete, FSHResource.OrderStatus)]
     [OpenApiOperation("Delete a orderStatus.", "")]
     public Task<Guid> DeleteAsync(Guid id)
     {
@@ -32,7 +32,7 @@ public class OrderStatusesController : VersionedApiController
 
 
     [HttpPut("{id:guid}")]
-    [MustHavePermission(FSHAction.Update, FSHResource.OrderStatuses)]
+    [MustHavePermission(FSHAction.Update, FSHResource.OrderStatus)]
     [OpenApiOperation("Update a orderStatus.", "")]
     public async Task<ActionResult<Guid>> UpdateAsync(UpdateOrderStatusRequest request, Guid id)
     {
@@ -43,7 +43,7 @@ public class OrderStatusesController : VersionedApiController
 
 
     [HttpPost("search")]
-    [MustHavePermission(FSHAction.Search, FSHResource.OrderStatuses)]
+    [MustHavePermission(FSHAction.Search, FSHResource.OrderStatus)]
     [OpenApiOperation("Search orderStatus using available filters.", "")]
     public Task<PaginationResponse<OrderStatusDto>> SearchAsync(SearchOrderStatusRequest request)
     {

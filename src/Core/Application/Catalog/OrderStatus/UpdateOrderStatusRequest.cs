@@ -1,7 +1,7 @@
 using Totostore.Backend.Domain.Common.Events;
 using Totostore.Backend.Shared.Enums;
 
-namespace Totostore.Backend.Application.Catalog.OrderStatuses;
+namespace Totostore.Backend.Application.Catalog.OrderStatus;
 
 public class UpdateOrderStatusRequest : IRequest<Guid>
 {
@@ -13,7 +13,7 @@ public class UpdateOrderStatusRequest : IRequest<Guid>
 
 public class UpdateOrderStatusRequestValidator : CustomValidator<UpdateOrderStatusRequest>
 {
-    public UpdateOrderStatusRequestValidator(IReadRepository<OrderStatus> orderStatusRepo,
+    public UpdateOrderStatusRequestValidator(IReadRepository<Domain.Catalog.OrderStatus> orderStatusRepo,
         IReadRepository<Order> orderRepo, IStringLocalizer<UpdateOrderStatusRequestValidator> localizer)
     {
         RuleFor(p => p.OrderId)
@@ -28,9 +28,9 @@ public class UpdateOrderStatusRequestHandler : IRequestHandler<UpdateOrderStatus
     private readonly IStringLocalizer<UpdateOrderStatusRequestHandler> _localizer;
 
     // Add Domain Events automatically by using IRepositoryWithEvents
-    private readonly IRepositoryWithEvents<OrderStatus> _repository;
+    private readonly IRepositoryWithEvents<Domain.Catalog.OrderStatus> _repository;
 
-    public UpdateOrderStatusRequestHandler(IRepositoryWithEvents<OrderStatus> repository,
+    public UpdateOrderStatusRequestHandler(IRepositoryWithEvents<Domain.Catalog.OrderStatus> repository,
         IStringLocalizer<UpdateOrderStatusRequestHandler> localizer) =>
         (_repository, _localizer) = (repository, localizer);
 

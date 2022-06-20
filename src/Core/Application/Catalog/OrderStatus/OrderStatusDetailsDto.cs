@@ -1,12 +1,13 @@
+using Totostore.Backend.Application.Catalog.Orders;
 using Totostore.Backend.Shared.Enums;
 
-namespace Totostore.Backend.Application.Catalog.OrderStatuses;
+namespace Totostore.Backend.Application.Catalog.OrderStatus;
 
-public class OrderStatusDto : IDto
+public class OrderStatusDetailsDto : IDto
 {
     public Guid Id { get; set; }
     public OrderStatusEnums Status { get; set; }
     public string? Note { get; set; } = default!;
     public Guid OrderId { get; set; }
-    public string OrderName { get; set; } = default!;
+    public OrderDto Order { get; set; } = default!;
 }

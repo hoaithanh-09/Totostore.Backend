@@ -1,6 +1,6 @@
 using Totostore.Backend.Domain.Common.Events;
 
-namespace Totostore.Backend.Application.Catalog.OrderStatuses;
+namespace Totostore.Backend.Application.Catalog.OrderStatus;
 
 public class DeleteOrderStatusRequest : IRequest<Guid>
 {
@@ -11,9 +11,9 @@ public class DeleteOrderStatusRequest : IRequest<Guid>
 public class DeleteOrderStatusRequestHandler : IRequestHandler<DeleteOrderStatusRequest, Guid>
 {
     private readonly IStringLocalizer<DeleteOrderStatusRequestHandler> _localizer;
-    private readonly IRepository<OrderStatus> _repository;
+    private readonly IRepository<Domain.Catalog.OrderStatus> _repository;
 
-    public DeleteOrderStatusRequestHandler(IRepository<OrderStatus> repository,
+    public DeleteOrderStatusRequestHandler(IRepository<Domain.Catalog.OrderStatus> repository,
         IStringLocalizer<DeleteOrderStatusRequestHandler> localizer) =>
         (_repository, _localizer) = (repository, localizer);
 

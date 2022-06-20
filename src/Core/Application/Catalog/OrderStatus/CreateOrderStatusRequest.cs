@@ -1,7 +1,7 @@
 using Totostore.Backend.Domain.Common.Events;
 using Totostore.Backend.Shared.Enums;
 
-namespace Totostore.Backend.Application.Catalog.OrderStatuses;
+namespace Totostore.Backend.Application.Catalog.OrderStatus;
 
 public class CreateOrderStatusRequest : IRequest<Guid>
 {
@@ -12,7 +12,7 @@ public class CreateOrderStatusRequest : IRequest<Guid>
 
 public class CreateOrderStatusRequestValidator : CustomValidator<CreateOrderStatusRequest>
 {
-    public CreateOrderStatusRequestValidator(IReadRepository<OrderStatus> orderStatusRepo,
+    public CreateOrderStatusRequestValidator(IReadRepository<Domain.Catalog.OrderStatus> orderStatusRepo,
         IReadRepository<Order> orderRepo, IStringLocalizer<CreateOrderStatusRequestValidator> localizer)
     {
         RuleFor(p => p.OrderId)
@@ -25,15 +25,15 @@ public class CreateOrderStatusRequestValidator : CustomValidator<CreateOrderStat
 public class CreateOrderStatusRequestHandler : IRequestHandler<CreateOrderStatusRequest, Guid>
 {
     private readonly IFileStorageService _file;
-    private readonly IRepository<OrderStatus> _repository;
+    private readonly IRepository<Domain.Catalog.OrderStatus> _repository;
 
-    public CreateOrderStatusRequestHandler(IRepository<OrderStatus> repository, IFileStorageService file) =>
+    public CreateOrderStatusRequestHandler(IRepository<Domain.Catalog.OrderStatus> repository, IFileStorageService file) =>
         (_repository, _file) = (repository, file);
 
     public async Task<Guid> Handle(CreateOrderStatusRequest request, CancellationToken cancellationToken)
     {
         var orderStatus =
-            new OrderStatus(request.Status, request.Note, request.OrderId);
+            new Domain.Catalog.OrderStatus(request.Status, request.Note, request.OrderId);
 
         // Add Domain Events to be raised after the commit
         orderStatus.DomainEvents.Add(EntityCreatedEvent.WithEntity(orderStatus));
