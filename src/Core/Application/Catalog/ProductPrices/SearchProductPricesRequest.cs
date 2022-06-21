@@ -2,8 +2,6 @@ namespace Totostore.Backend.Application.Catalog.ProductPrices;
 
 public class SearchProductPricesRequest: PaginationFilter, IRequest<PaginationResponse<ProductPriceDto>>
 {
-
-
 }
 
 public class ProductPricesBySearchRequestSpec : EntitiesByPaginationFilterSpec<ProductPrice, ProductPriceDto>

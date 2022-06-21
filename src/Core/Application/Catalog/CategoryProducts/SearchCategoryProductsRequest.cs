@@ -2,13 +2,12 @@ namespace Totostore.Backend.Application.Catalog.CategoryProducts;
 
 public class SearchCategoryProductsRequest : PaginationFilter, IRequest<PaginationResponse<CategoryProductDto>>
 {
-    public Guid? CategoryId { get; set; }
 }
 
 public class CategoryProductsBySearchRequestSpec : EntitiesByPaginationFilterSpec<CategoryProduct, CategoryProductDto>
 {
     public CategoryProductsBySearchRequestSpec(SearchCategoryProductsRequest request)
-        : base(request) => Query.Where((x => x.CategoryId == request.CategoryId.Value));
+        : base(request) => Query.OrderBy(x=>x.CreatedOn);
 }
 
 public class SearchCategoryProductsRequestHandler : IRequestHandler<SearchCategoryProductsRequest,

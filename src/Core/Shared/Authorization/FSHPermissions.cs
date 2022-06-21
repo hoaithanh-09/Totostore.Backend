@@ -87,6 +87,7 @@ public static class FSHPermissions
         new("Clean Brands", FSHAction.Clean, FSHResource.Brands),
 
         new("View Addresses", FSHAction.View, FSHResource.Addresses, IsBasic: true),
+        new("Search Addresses", FSHAction.Search, FSHResource.Addresses, IsBasic: true),
         new("Create Addresses", FSHAction.Create, FSHResource.Addresses),
         new("Update Addresses", FSHAction.Update, FSHResource.OrderCoupons),
         new("Delete Addresses", FSHAction.Delete, FSHResource.Addresses),

@@ -37,4 +37,12 @@ public class DetailsController:VersionedApiController
     {
         return Mediator.Send(new DeleteDetailRequest(id));
     }
+
+    [HttpPost("search")]
+    [MustHavePermission(FSHAction.Search, FSHResource.Details)]
+    [OpenApiOperation("Search details using available filters.", "")]
+    public Task<PaginationResponse<DetailDto>> SearchAsync(SearchDetailsRequest request)
+    {
+        return Mediator.Send(request);
+    }
 }

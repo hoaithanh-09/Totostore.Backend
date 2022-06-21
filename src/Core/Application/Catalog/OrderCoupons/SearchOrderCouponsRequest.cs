@@ -2,12 +2,11 @@ namespace Totostore.Backend.Application.Catalog.OrderCoupons;
 
 public class SearchOrderCouponsRequest : PaginationFilter, IRequest<PaginationResponse<OrderCouponDto>>
 {
-    public Guid? CouponId { get; set; }
 }
 public class OrderCouponsBySearchRequestSpec : EntitiesByPaginationFilterSpec<OrderCoupon, OrderCouponDto>
 {
     public OrderCouponsBySearchRequestSpec(SearchOrderCouponsRequest request)
-        : base(request) => Query.Where((x => x.CouponId== request.CouponId.Value));
+        : base(request) => Query.OrderBy(x=>x.CreatedOn);
 }
 
 public class SearchOrderCouponsRequestHandler : IRequestHandler<SearchOrderCouponsRequest,

@@ -28,4 +28,12 @@ public class OrderPaymentsController:VersionedApiController
     {
         return Mediator.Send(new DeleteOrderPaymentRequest(id));
     }
+
+    [HttpPost("search")]
+    [MustHavePermission(FSHAction.Search, FSHResource.OrderPayments)]
+    [OpenApiOperation("Search orderPayments using available filters.", "")]
+    public Task<PaginationResponse<OrderPaymentDto>> SearchAsync(SearchOrderPaymentsRequest request)
+    {
+        return Mediator.Send(request);
+    }
 }

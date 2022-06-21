@@ -2,7 +2,6 @@ namespace Totostore.Backend.Application.Catalog.ProductImages;
 
 public class SearchProductImagesRequest : PaginationFilter, IRequest<PaginationResponse<ProductImageDto>>
 {
-    public Guid? ProductId { get; set; }
 }
 
 public class PtoductImagesBySearchRequestSpec : EntitiesByPaginationFilterSpec<ProductImage, ProductImageDto>
@@ -10,8 +9,8 @@ public class PtoductImagesBySearchRequestSpec : EntitiesByPaginationFilterSpec<P
     public PtoductImagesBySearchRequestSpec(SearchProductImagesRequest request)
         : base(request) =>
         Query
-            .Include((x => x.Product))
-            .Where(x => x.ProductId == request.ProductId.Value);
+            .Include((x => x.Product));
+
 }
 
 public class SearchOrdersRequestHandler : IRequestHandler<SearchProductImagesRequest, PaginationResponse<ProductImageDto>>

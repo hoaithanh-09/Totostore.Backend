@@ -4,8 +4,6 @@ namespace Totostore.Backend.Application.Catalog.OrderStatus;
 
 public class SearchOrderStatusRequest : PaginationFilter, IRequest<PaginationResponse<OrderStatusDto>>
 {
-    public OrderStatusEnums? Status { get; set; }
-    public Guid? OrderId { get; set; }
 }
 
 public class OrderStatusBySearchRequestSpec : EntitiesByPaginationFilterSpec<Domain.Catalog.OrderStatus, OrderStatusDto>
@@ -13,9 +11,8 @@ public class OrderStatusBySearchRequestSpec : EntitiesByPaginationFilterSpec<Dom
     public OrderStatusBySearchRequestSpec(SearchOrderStatusRequest request)
         : base(request) =>
         Query
-            .Include((x => x.Order))
-            .Where(x => x.Status == request.Status.Value)
-            .Where(x => x.OrderId == request.OrderId.Value);
+            .Include((x => x.Order));
+
 }
 
 public class SearchOrdersRequestHandler : IRequestHandler<SearchOrderStatusRequest, PaginationResponse<OrderStatusDto>>

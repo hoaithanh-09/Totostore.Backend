@@ -4,12 +4,11 @@ namespace Totostore.Backend.Application.Catalog.OrderProducts;
 
 public class SearchOrderProductsRequest : PaginationFilter, IRequest<PaginationResponse<OrderProductDto>>
 {
-    public Guid? OrderId { get; set; }
 }
 public class OrderProductsBySearchRequestSpec : EntitiesByPaginationFilterSpec<OrderProduct, OrderProductDto>
 {
     public OrderProductsBySearchRequestSpec(SearchOrderProductsRequest request)
-        : base(request) => Query.Where((x => x.OrderId == request.OrderId.Value));
+        : base(request) => Query.OrderBy(x => x.CreatedOn);
 }
 
 public class SearchOrderProductsRequestHandler : IRequestHandler<SearchOrderProductsRequest,

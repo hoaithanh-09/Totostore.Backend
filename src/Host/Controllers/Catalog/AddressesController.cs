@@ -37,4 +37,12 @@ public class AddressesController : VersionedApiController
     {
         return Mediator.Send(new DeleteAddressRequest(id));
     }
+
+    [HttpPost("search")]
+    [MustHavePermission(FSHAction.Search, FSHResource.Addresses)]
+    [OpenApiOperation("Search addresses using available filters.", "")]
+    public Task<PaginationResponse<AddressDto>> SearchAsync(SearchAddressesRequest request)
+    {
+        return Mediator.Send(request);
+    }
 }
