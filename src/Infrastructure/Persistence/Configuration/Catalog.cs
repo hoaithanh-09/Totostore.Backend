@@ -351,5 +351,42 @@ public class AddressConfig : IEntityTypeConfiguration<Address>
     public void Configure(EntityTypeBuilder<Address> builder)
     {
         builder.IsMultiTenant();
+        builder.HasData(
+            new
+            {
+                City = "TP Hồ Chí Minh",
+                District = "Quận 1",
+                Ward = "Phường 1",
+                StayingAddress = "Số 1"
+            },
+            new
+            {
+                City = "TP Hồ Chí Minh",
+                District = "Quận 3",
+                Ward = "Phường 2",
+                StayingAddress = "Số 1"
+            },
+            new
+            {
+                City = "TP Hồ Chí Minh",
+                District = "Quận 1",
+                Ward = "Phường 1",
+                StayingAddress = "Số 11"
+            },
+            new
+            {
+                City = "TP Hồ Chí Minh",
+                District = "Tân Bình",
+                Ward = "Phường 13",
+                StayingAddress = "Số 26"
+            },
+            new
+            {
+                City = "Kon Tum",
+                District = "Huyện Dak Hà",
+                Ward = "Xã Dak Mar",
+                StayingAddress = "Số 63"
+            }
+            );
     }
 }
