@@ -1,9 +1,15 @@
-﻿namespace Totostore.Backend.Infrastructure.Mapping;
+﻿using Mapster;
+using Totostore.Backend.Application.Catalog.Products;
+using Totostore.Backend.Domain.Catalog;
+
+namespace Totostore.Backend.Infrastructure.Mapping;
 
 public class MapsterSettings
 {
     public static void Configure()
     {
+        TypeAdapterConfig<Product, ProductViewModel>.NewConfig();
+
         // here we will define the type conversion / Custom-mapping
         // More details at https://github.com/MapsterMapper/Mapster/wiki/Custom-mapping
 
