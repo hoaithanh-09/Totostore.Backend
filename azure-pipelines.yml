@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+- dev
 
 pool:
   totostore-ci
@@ -14,8 +14,9 @@ variables:
   workDir: '/home/hoaith/projects/Totostore.Backend/'
 
 steps:
-- script: |
-    mkdir -p $(workDir) && cd $(workDir)
+- script:
+  workingDirectory: $(workDir)  
+   |
     git pull
     ls
   displayName: 'Run update stack commands'
