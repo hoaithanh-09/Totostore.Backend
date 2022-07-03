@@ -14,9 +14,8 @@ variables:
   workDir: '/home/hoaith/projects/Totostore.Backend/'
 
 steps:
-- script:
-  workingDirectory: $(workDir)  
-   |
+- script: |
     git pull
-    ls
+    docker-compose up --build -d
+  workingDirectory: $(workDir)
   displayName: 'Run update stack commands'
