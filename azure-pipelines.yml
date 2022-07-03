@@ -11,9 +11,11 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  workDir: '/home/hoaith/projects/Totostore.Backend/'
 
 steps:
-- script: 
-    cd /home/hoaith/projects/Totostore.Backend
+- script: |
+    mkdir -p $(workDir) && cd $(workDir)
+    git pull
     ls
-  displayName: 'dotnet build $(buildConfiguration)'
+  displayName: 'Run update stack commands'
