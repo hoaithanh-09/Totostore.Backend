@@ -7,7 +7,7 @@ public class SearchProductDetailsRequest : PaginationFilter, IRequest<Pagination
 public class ProductDetailsBySearchRequestSpec : EntitiesByPaginationFilterSpec<ProductDetail, ProductDetailDto>
 {
     public ProductDetailsBySearchRequestSpec(SearchProductDetailsRequest request)
-        : base(request) => Query.Include((x => x.ProductId));
+        : base(request) => Query.OrderBy(x => x.CreatedOn);
 }
 
 public class SearchProductDetailsRequestHandler : IRequestHandler<SearchProductDetailsRequest,

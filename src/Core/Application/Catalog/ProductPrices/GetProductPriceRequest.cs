@@ -6,7 +6,7 @@ public class GetProductPriceRequest : IRequest<ProductPriceDetailsDto>
     public Guid Id { get; set; }
 }
 
-public class ProductPriceByIdSpec : Specification<ProductPrice, ProductPriceDto>, ISingleResultSpecification
+public class ProductPriceByIdSpec : Specification<ProductPrice, ProductPriceDetailsDto>, ISingleResultSpecification
 {
     public ProductPriceByIdSpec(Guid id) =>
         Query.Where(p => p.Id == id)

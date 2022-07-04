@@ -8,12 +8,15 @@ public class SearchCouponsRequest : PaginationFilter, IRequest<PaginationRespons
 public class CouponsBySearchRequestSpec : EntitiesByPaginationFilterSpec<Coupon, CouponDto>
 {
     public CouponsBySearchRequestSpec(SearchCouponsRequest request)
-        : base(request) =>
-        Query.OrderBy(c => c.Name, !request.HasOrderBy())
-            .Where(x => x.TimeBegin.CompareTo(request.GetNow.Value) <= 0 &&
-                        x.TimeEnd.CompareTo(request.GetNow.Value) >= 0);
+        : base(request)
+    {
+        Query.OrderBy(c => c.Name, !request.HasOrderBy());
+        if (request.GetNow.HasValue)
+        {
+            Query.Where(x => DateTime.Compare(x.TimeBegin, request.GetNow.Value) <= 0 && DateTime.Compare(x.TimeEnd, request.GetNow.Value) >= 0);
+        }
+    }
 }
-
 public class SearchCouponsRequestHandler : IRequestHandler<SearchCouponsRequest, PaginationResponse<CouponDto>>
 {
     private readonly IReadRepository<Coupon> _repository;
