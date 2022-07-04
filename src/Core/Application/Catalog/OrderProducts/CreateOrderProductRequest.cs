@@ -20,11 +20,7 @@ public class CreateOrderProductRequestValidator : CustomValidator<CreateOrderPro
             .NotEmpty()
             .MustAsync(async (id, ct) => await orderRepo.GetByIdAsync(id, ct) is not null)
             .WithMessage((_, id) => string.Format(localizer["order.notfound"], id));
-        RuleFor(p => p.OrderId)
-            .NotEmpty()
-            .MustAsync(async (id, ct) => await productRepo.GetByIdAsync(id, ct) is not null)
-            .WithMessage((_, id) => string.Format(localizer["product.notfound"], id));
-        RuleFor(p => p.OrderId)
+        RuleFor(p => p.ProductId)
             .NotEmpty()
             .MustAsync(async (id, ct) => await productRepo.GetByIdAsync(id, ct) is not null)
             .WithMessage((_, id) => string.Format(localizer["product.notfound"], id));

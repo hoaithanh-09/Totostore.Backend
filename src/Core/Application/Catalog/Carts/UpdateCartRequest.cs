@@ -22,7 +22,7 @@ public class UpdateCartRequestValidator : CustomValidator<UpdateCartRequest>
             .WithMessage((_, id) => string.Format(localizer["customer.notfound"], id));
         RuleFor(p => p.ProductId)
             .NotEmpty()
-            .MustAsync(async (id, ct) => await customerRepo.GetByIdAsync(id, ct) is not null)
+            .MustAsync(async (id, ct) => await productRepo.GetByIdAsync(id, ct) is not null)
             .WithMessage((_, id) => string.Format(localizer["product.notfound"], id));
     }
 }

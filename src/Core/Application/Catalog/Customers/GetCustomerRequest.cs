@@ -6,7 +6,7 @@ public class GetCustomerRequest : IRequest<CustomerDetailsDto>
     public Guid Id { get; set; }
 }
 
-public class CustomerByIdSpec : Specification<Customer, CustomerDto>, ISingleResultSpecification
+public class CustomerByIdSpec : Specification<Customer, CustomerDetailsDto>, ISingleResultSpecification
 {
     public CustomerByIdSpec(Guid id) =>
         Query.Where(p => p.Id == id);

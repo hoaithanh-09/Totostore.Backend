@@ -1,3 +1,5 @@
+using Totostore.Backend.Domain.Common.Events;
+
 namespace Totostore.Backend.Application.Catalog.Addresses;
 
 public class UpdateAddressRequest : IRequest<Guid>
@@ -35,6 +37,7 @@ public class UpdateAddressRequestHandler : IRequestHandler<UpdateAddressRequest,
         _ = address ?? throw new NotFoundException(string.Format(_localizer["address.notfound"], request.Id));
 
         address.Update(request.City, request.District, request.Ward, request.StayingAddress);
+        address.DomainEvents.Add(EntityUpdatedEvent.WithEntity(address));
 
         await _repository.UpdateAsync(address, cancellationToken);
 

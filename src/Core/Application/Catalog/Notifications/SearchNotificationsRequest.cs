@@ -9,10 +9,23 @@ public class SearchNotificationsRequest : PaginationFilter, IRequest<PaginationR
 public class NotificationsBySearchRequestSpec : EntitiesByPaginationFilterSpec<Notification, NotificationDto>
 {
     public NotificationsBySearchRequestSpec(SearchNotificationsRequest request)
-        : base(request) =>
-        Query.Where(x =>
-            x.CreatedOn.Date.CompareTo(request.FromDate.Value) >= 0 &&
-            x.CreatedOn.Date.CompareTo(request.ToDate.Value) <= 0);
+        : base(request)
+    {
+        Query.OrderByDescending(x => x.DeletedOn);
+        if (request.FromDate != null)
+        {
+            DateTime toDate;
+            if (!request.ToDate.HasValue)
+            {
+                toDate = DateTime.UtcNow.AddHours(7);
+            }
+            else
+            {
+                toDate = request.ToDate.Value;
+            }
+            Query.Where(x => DateTime.Compare(x.CreatedOn, request.FromDate.Value) >= 0 && DateTime.Compare(x.CreatedOn, toDate) <= 0);
+        }
+    }
 }
 
 public class
