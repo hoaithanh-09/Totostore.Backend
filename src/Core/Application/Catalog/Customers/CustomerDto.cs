@@ -9,4 +9,5 @@ public class CustomerDto : IDto
     public string Mail { get; set; } = default!;
     public string PhoneNumber { get; set; } = default!;
     public Guid AddressId { get; set; }
+    public Guid UserId { get; set; }
 }

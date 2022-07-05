@@ -2,13 +2,20 @@ namespace Totostore.Backend.Application.Catalog.Customers;
 
 public class SearchCustomersRequest : PaginationFilter, IRequest<PaginationResponse<CustomerDto>>
 {
+    public Guid? UserId { get; set; }
 }
 
 public class CustomersBySearchRequestSpec : EntitiesByPaginationFilterSpec<Customer, CustomerDto>
 {
     public CustomersBySearchRequestSpec(SearchCustomersRequest request)
-        : base(request) =>
+        : base(request)
+    {
         Query.OrderBy(c => c.Name, !request.HasOrderBy());
+        if(request.UserId.HasValue)
+        {
+            Query.Where(x => x.UserId == request.UserId);
+        }
+    }
 }
 
 public class SearchCustomersRequestHandler : IRequestHandler<SearchCustomersRequest, PaginationResponse<CustomerDto>>

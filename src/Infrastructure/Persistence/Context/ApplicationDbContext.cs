@@ -17,7 +17,6 @@ public class ApplicationDbContext : BaseDbContext
     }
 
     public DbSet<Product> Products => Set<Product>();
-    public DbSet<Brand> Brands => Set<Brand>();
     public DbSet<Cart> Carts => Set<Cart>();
     public DbSet<Address> Addresses => Set<Address>();
     public DbSet<Category> Categories => Set<Category>();

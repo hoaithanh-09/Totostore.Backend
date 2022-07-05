@@ -18,18 +18,6 @@ public class SupplierConfig : IEntityTypeConfiguration<Supplier>
     }
 }
 
-// Brands
-public class BrandConfig : IEntityTypeConfiguration<Brand>
-{
-    public void Configure(EntityTypeBuilder<Brand> builder)
-    {
-        builder.IsMultiTenant();
-
-        builder
-            .Property(b => b.Name)
-            .HasMaxLength(256);
-    }
-}
 
 public class ProductConfig : IEntityTypeConfiguration<Product>
 {
@@ -285,6 +273,11 @@ public class ProductPriceConfig : IEntityTypeConfiguration<ProductPrice>
             .WithMany(x => x.ProductPrices)
             .HasForeignKey(x => x.ProductId)
             .OnDelete(DeleteBehavior.Cascade);
+        builder
+           .HasOne(x => x.Coupon)
+           .WithMany(x => x.ProductPrices)
+           .HasForeignKey(x => x.CouponId)
+           .OnDelete(DeleteBehavior.NoAction);
     }
 }
 
@@ -336,12 +329,7 @@ public class OrderProductConfig : IEntityTypeConfiguration<OrderProduct>
             .WithMany(x => x.OrderProducts)
             .HasForeignKey(x => x.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
-
-        builder
-            .HasOne(x => x.ProductPrice)
-            .WithMany(x => x.OrderProducts)
-            .HasForeignKey(x => x.ProductPriceId)
-            .OnDelete(DeleteBehavior.NoAction);
+      
     }
 }
 

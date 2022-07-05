@@ -2,7 +2,7 @@ namespace Totostore.Backend.Domain.Catalog;
 
 public class Customer : AuditableEntity, IAggregateRoot
 {
-    public Customer(string name, DateTime dob, bool gender, string mail, string phoneNumber, Guid addressId)
+    public Customer(string name, DateTime dob, bool gender, string mail, string phoneNumber, Guid addressId, Guid userId)
     {
         Name = name;
         Dob = dob;
@@ -10,6 +10,7 @@ public class Customer : AuditableEntity, IAggregateRoot
         Mail = mail;
         PhoneNumber = phoneNumber;
         AddressId = addressId;
+        UserId = userId;
     }
 
     public string Name { get; set; } = default!;
@@ -18,6 +19,7 @@ public class Customer : AuditableEntity, IAggregateRoot
     public string Mail { get; set; } = default!;
     public string PhoneNumber { get; set; } = default!;
     public Guid AddressId { get; set; }
+    public Guid UserId { get; set; }
     public virtual Address Address { get; set; } = default!;
     public virtual List<Notification> Notifications { get; set; } = default!;
     public virtual List<Cart> Carts { get; set; } = default!;

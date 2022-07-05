@@ -5,8 +5,8 @@ using Totostore.Backend.Shared.Events;
 namespace Totostore.Backend.Application.Dashboard;
 
 public class SendStatsChangedNotificationHandler :
-    IEventNotificationHandler<EntityCreatedEvent<Brand>>,
-    IEventNotificationHandler<EntityDeletedEvent<Brand>>,
+    //IEventNotificationHandler<EntityCreatedEvent<Supplier>>,
+    //IEventNotificationHandler<EntityDeletedEvent<Supplier>>,
     IEventNotificationHandler<EntityCreatedEvent<Product>>,
     IEventNotificationHandler<EntityDeletedEvent<Product>>,
     IEventNotificationHandler<ApplicationRoleCreatedEvent>,
@@ -19,10 +19,10 @@ public class SendStatsChangedNotificationHandler :
     public SendStatsChangedNotificationHandler(ILogger<SendStatsChangedNotificationHandler> logger, INotificationSender notifications) =>
         (_logger, _notifications) = (logger, notifications);
 
-    public Task Handle(EventNotification<EntityCreatedEvent<Brand>> notification, CancellationToken cancellationToken) =>
-        SendStatsChangedNotification(notification.Event, cancellationToken);
-    public Task Handle(EventNotification<EntityDeletedEvent<Brand>> notification, CancellationToken cancellationToken) =>
-        SendStatsChangedNotification(notification.Event, cancellationToken);
+    //public Task Handle(EventNotification<EntityCreatedEvent<Brand>> notification, CancellationToken cancellationToken) =>
+    //    SendStatsChangedNotification(notification.Event, cancellationToken);
+    //public Task Handle(EventNotification<EntityDeletedEvent<Brand>> notification, CancellationToken cancellationToken) =>
+      //  SendStatsChangedNotification(notification.Event, cancellationToken);
     public Task Handle(EventNotification<EntityCreatedEvent<Product>> notification, CancellationToken cancellationToken) =>
         SendStatsChangedNotification(notification.Event, cancellationToken);
     public Task Handle(EventNotification<EntityDeletedEvent<Product>> notification, CancellationToken cancellationToken) =>

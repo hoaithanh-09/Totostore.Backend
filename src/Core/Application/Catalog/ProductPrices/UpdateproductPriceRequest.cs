@@ -7,6 +7,7 @@ public class UpdateProductPriceRequest : IRequest<Guid>
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }
     public decimal Amount { get; set; }
+    public Guid? CouponId { get; set; }
 }
 
 public class UpdateProductPriceRequestValidator : CustomValidator<UpdateProductPriceRequest>
@@ -38,7 +39,7 @@ public class UpdateProductPriceRequestHandler : IRequestHandler<UpdateProductPri
 
         _ = productPrice ?? throw new NotFoundException(string.Format(_localizer["productPrice.notfound"], request.Id));
 
-        productPrice.Update(request.ProductId, request.Amount);
+        productPrice.Update(request.ProductId, request.CouponId, request.Amount);
         // Add Domain Events to be raised after the commit
         productPrice.DomainEvents.Add(EntityUpdatedEvent.WithEntity(productPrice));
 

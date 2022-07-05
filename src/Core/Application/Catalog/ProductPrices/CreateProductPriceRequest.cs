@@ -5,6 +5,7 @@ namespace Totostore.Backend.Application.Catalog.ProductPrices;
 public class CreateProductPriceRequest : IRequest<Guid>
 {
     public Guid ProductId { get; set; }
+    public Guid? CouponId { get; set; }
     public decimal Amount { get; set; }
 }
 
@@ -31,7 +32,7 @@ public class CreateProductPriceRequestHandler : IRequestHandler<CreateProductPri
     public async Task<Guid> Handle(CreateProductPriceRequest request, CancellationToken cancellationToken)
     {
         var productPrice =
-            new ProductPrice(request.ProductId, request.Amount);
+            new ProductPrice(request.ProductId, request.CouponId, request.Amount);
 
         // Add Domain Events to be raised after the commit
         productPrice.DomainEvents.Add(EntityCreatedEvent.WithEntity(productPrice));
