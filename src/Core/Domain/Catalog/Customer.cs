@@ -1,3 +1,5 @@
+using Totostore.Backend.Domain.Identity;
+
 namespace Totostore.Backend.Domain.Catalog;
 
 public class Customer : AuditableEntity, IAggregateRoot
@@ -37,4 +39,5 @@ public class Customer : AuditableEntity, IAggregateRoot
             AddressId = addressId.Value;
         return this;
     }
+
 }

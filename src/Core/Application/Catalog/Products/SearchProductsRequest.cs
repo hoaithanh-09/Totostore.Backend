@@ -28,7 +28,7 @@ public class SearchProductsRequestHandler : IRequestHandler<SearchProductsReques
         CancellationToken cancellationToken)
     {
         var query = await _productRepo.ListAsync();
-        if (request.CategoryIds.Count()!=0)
+        if (request.CategoryIds.Count() != 0)
         {
             int count = request.CategoryIds.Count();
             for (var i = 1; i <= count; i++)
@@ -38,7 +38,7 @@ public class SearchProductsRequestHandler : IRequestHandler<SearchProductsReques
                 query = categoryProducts.Select(x => x.Product).ToList();
             }
         }
-         if (request.SupplierId.HasValue)
+        if (request.SupplierId.HasValue)
         {
             query = query.Where(x => x.SupplierId != null && x.SupplierId == request.SupplierId.Value)
                 .OrderBy(x => x.Name).ToList();

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Totostore.Backend.Domain.Catalog;
 
 namespace Totostore.Backend.Infrastructure.Identity;
 
@@ -10,6 +11,6 @@ public class ApplicationUser : IdentityUser
     public bool IsActive { get; set; }
     public string? RefreshToken { get; set; }
     public DateTime RefreshTokenExpiryTime { get; set; }
-
     public string? ObjectId { get; set; }
+    public virtual List<Customer> Customers { get; set; }
 }

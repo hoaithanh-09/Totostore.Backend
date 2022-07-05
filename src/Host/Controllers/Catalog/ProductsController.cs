@@ -5,13 +5,13 @@ namespace Totostore.Backend.Host.Controllers.Catalog;
 
 public class ProductsController : VersionedApiController
 {
-    [HttpPost("search")]
-    [MustHavePermission(FSHAction.Search, FSHResource.Products)]
-    [OpenApiOperation("Search products using available filters.", "")]
-    public Task<PaginationResponse<ProductViewModel>> SearchAsync(SearchProductsRequest request)
-    {
-        return Mediator.Send(request);
-    }
+    //[HttpPost("search")]
+    //[MustHavePermission(FSHAction.Search, FSHResource.Products)]
+    //[OpenApiOperation("Search products using available filters.", "")]
+    //public Task<PaginationResponse<ProductViewModel>> SearchAsync(SearchProductsRequest request)
+    //{
+    //    return Mediator.Send(request);
+    //}
 
     [HttpGet("{id:guid}")]
     [MustHavePermission(FSHAction.View, FSHResource.Products)]
