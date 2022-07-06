@@ -3,6 +3,7 @@ using Totostore.Backend.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Totostore.Backend.Domain.Identity;
 
 namespace Totostore.Backend.Infrastructure.Persistence.Configuration;
 

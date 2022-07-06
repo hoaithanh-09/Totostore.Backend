@@ -11,6 +11,7 @@ public class UpdateCustomerRequest : IRequest<Guid>
     public string Mail { get; set; } = default!;
     public string PhoneNumber { get; set; } = default!;
     public Guid AddressId { get; set; }
+    public string UserId { get; set; }
 }
 
 public class UpdateCustomerRequestValidator : CustomValidator<UpdateCustomerRequest>
@@ -42,7 +43,7 @@ public class UpdateCustomerRequestHandler : IRequestHandler<UpdateCustomerReques
         _ = customer ?? throw new NotFoundException(string.Format(_localizer["customer.notfound"], request.Id));
 
         customer.Update(request.Name, request.Dob, request.Gender, request.Mail, request.PhoneNumber,
-            request.AddressId);
+            request.AddressId, request.UserId);
         // Add Domain Events to be raised after the commit
         customer.DomainEvents.Add(EntityUpdatedEvent.WithEntity(customer));
 

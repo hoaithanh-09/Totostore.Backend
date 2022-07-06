@@ -11,8 +11,7 @@ public class OrderProductByIdSpec : Specification<OrderProduct, OrderProductDto>
     public OrderProductByIdSpec(Guid id) =>
         Query.Where(p => p.Id == id)
             .Include(p => p.Order)
-            .Include(p => p.Product)
-            .Include(p => p.ProductPrice);
+            .Include(p => p.Product);
 }
 
 public class GetOrderProductRequestHandler : IRequestHandler<GetOrderProductRequest, OrderProductDetailsDto>

@@ -4,11 +4,11 @@ using Totostore.Backend.Application.Common.Events;
 using Totostore.Backend.Application.Common.Interfaces;
 using Totostore.Backend.Domain.Common.Contracts;
 using Totostore.Backend.Infrastructure.Auditing;
-using Totostore.Backend.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Options;
+using Totostore.Backend.Domain.Identity;
 
 namespace Totostore.Backend.Infrastructure.Persistence.Context;
 

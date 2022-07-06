@@ -10,7 +10,7 @@ public class CreateCategoryProductRequest : IRequest<Guid>
 
 public class CreateCategoryProductRequestValidator : CustomValidator<CreateCategoryProductRequest>
 {
-    public CreateCategoryProductRequestValidator(IReadRepository<Cart> categoryProductRepo,
+    public CreateCategoryProductRequestValidator(IReadRepository<CategoryProduct> categoryProductRepo,
         IReadRepository<Category> categoryRepo, IReadRepository<Product> productRepo,
         IStringLocalizer<CreateCategoryProductRequestValidator> localizer)
     {

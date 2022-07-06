@@ -2,7 +2,7 @@ namespace Totostore.Backend.Domain.Catalog;
 
 public class Category : AuditableEntity, IAggregateRoot
 {
-    public Category(string name, string? slug, int level, int order, string? description, Guid parentId, bool isShowed)
+    public Category(string name, string? slug, int level, int order, string? description, Guid? parentId, bool isShowed)
     {
         Name = name;
         Slug = slug;
@@ -18,7 +18,7 @@ public class Category : AuditableEntity, IAggregateRoot
     public int Level { get; set; }
     public int Order { get; set; }
     public string? Description { get; set; }
-    public Guid ParentId { get; set; }
+    public Guid? ParentId { get; set; }
     public bool IsShowed { get; set; }
     public virtual List<CategoryProduct> CategoryProducts { get; set; } = default!;
 
