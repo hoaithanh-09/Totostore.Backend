@@ -7,7 +7,7 @@ public class CustomersController : VersionedApiController
     [HttpPost("search")]
     [MustHavePermission(FSHAction.Search, FSHResource.Customers)]
     [OpenApiOperation("Search customers using available filters.", "")]
-    public Task<PaginationResponse<CustomerDto>> SearchAsync(SearchCustomersRequest request)
+    public Task<PaginationResponse<CustomerDetailsDto>> SearchAsync(SearchCustomersRequest request)
     {
         return Mediator.Send(request);
     }

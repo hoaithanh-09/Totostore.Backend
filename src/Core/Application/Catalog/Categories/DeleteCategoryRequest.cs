@@ -13,9 +13,9 @@ public class DeleteCategoryRequestHandler : IRequestHandler<DeleteCategoryReques
 {
     private readonly IReadRepository<CategoryProduct> _categoryProductRepo;
     private readonly IStringLocalizer<DeleteCategoryRequestHandler> _localizer;
-    private readonly IRepository<Category> _repository;
+    private readonly IRepository<CategoryDetailDto> _repository;
 
-    public DeleteCategoryRequestHandler(IRepository<Category> repository,
+    public DeleteCategoryRequestHandler(IRepository<CategoryDetailDto> repository,
         IStringLocalizer<DeleteCategoryRequestHandler> localizer,
         IReadRepository<CategoryProduct> categoryProductRepo) =>
         (_repository, _localizer, _categoryProductRepo) = (repository, localizer, categoryProductRepo);

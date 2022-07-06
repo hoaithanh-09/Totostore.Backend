@@ -1,24 +1,21 @@
 using Totostore.Backend.Domain.Common.Events;
+using Totostore.Backend.Domain.Identity;
 
 namespace Totostore.Backend.Application.Catalog.Carts;
 
 public class CreateCartRequest : IRequest<Guid>
 {
     public Guid ProductId { get; set; }
-    public Guid CustomerId { get; set; }
+    public string UserId { get; set; }
     public int Quantity { get; set; }
     public decimal Price { get; set; }
 }
 
 public class CreateCartRequestValidator : CustomValidator<CreateCartRequest>
 {
-    public CreateCartRequestValidator(IReadRepository<Cart> cartRepo, IReadRepository<Customer> customerRepo,
+    public CreateCartRequestValidator(IReadRepository<Cart> cartRepo,
         IReadRepository<Product> productRepo, IStringLocalizer<CreateCartRequestValidator> localizer)
-    {
-        RuleFor(p => p.CustomerId)
-            .NotEmpty()
-            .MustAsync(async (id, ct) => await customerRepo.GetByIdAsync(id, ct) is not null)
-            .WithMessage((_, id) => string.Format(localizer["customer.notfound"], id));
+    { 
         RuleFor(p => p.ProductId)
             .NotEmpty()
             .MustAsync(async (id, ct) => await productRepo.GetByIdAsync(id, ct) is not null)
@@ -36,7 +33,7 @@ public class CreateCartRequestHandler : IRequestHandler<CreateCartRequest, Guid>
 
     public async Task<Guid> Handle(CreateCartRequest request, CancellationToken cancellationToken)
     {
-        var cart = new Cart(request.ProductId, request.CustomerId, request.Quantity, request.Price);
+        var cart = new Cart(request.ProductId, request.UserId, request.Quantity, request.Price);
 
         // Add Domain Events to be raised after the commit
         cart.DomainEvents.Add(EntityCreatedEvent.WithEntity(cart));

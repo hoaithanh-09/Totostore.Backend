@@ -25,7 +25,6 @@ public static class FSHResource
     public const string Roles = nameof(Roles);
     public const string RoleClaims = nameof(RoleClaims);
     public const string Products = nameof(Products);
-    public const string Brands = nameof(Brands);
     public const string Addresses = nameof(Addresses);
     public const string Carts = nameof(Carts);
     public const string Categories = nameof(Categories);
@@ -78,18 +77,10 @@ public static class FSHPermissions
         new("Delete Products", FSHAction.Delete, FSHResource.Products),
         new("Export Products", FSHAction.Export, FSHResource.Products),
 
-        new("View Brands", FSHAction.View, FSHResource.Brands, IsBasic: true),
-        new("Search Brands", FSHAction.Search, FSHResource.Brands, IsBasic: true),
-        new("Create Brands", FSHAction.Create, FSHResource.Brands),
-        new("Update Brands", FSHAction.Update, FSHResource.Brands),
-        new("Delete Brands", FSHAction.Delete, FSHResource.Brands),
-        new("Generate Brands", FSHAction.Generate, FSHResource.Brands),
-        new("Clean Brands", FSHAction.Clean, FSHResource.Brands),
-
         new("View Addresses", FSHAction.View, FSHResource.Addresses, IsBasic: true),
         new("Search Addresses", FSHAction.Search, FSHResource.Addresses, IsBasic: true),
         new("Create Addresses", FSHAction.Create, FSHResource.Addresses),
-        new("Update Addresses", FSHAction.Update, FSHResource.OrderCoupons),
+        new("Update Addresses", FSHAction.Update, FSHResource.Addresses),
         new("Delete Addresses", FSHAction.Delete, FSHResource.Addresses),
 
         new("View Carts", FSHAction.View, FSHResource.Carts, IsBasic: true),

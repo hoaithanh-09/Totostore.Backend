@@ -25,6 +25,6 @@ public class GetPaymentRequestHandler : IRequestHandler<GetPaymentRequest, Payme
 
     public async Task<PaymentDto> Handle(GetPaymentRequest request, CancellationToken cancellationToken) =>
         await _repository.GetBySpecAsync(
-            (ISpecification<Payment, PaymentDto>)new CustomerByIdSpec(request.Id), cancellationToken)
+            (ISpecification<Payment, PaymentDto>)new PaymentByIdSpec(request.Id), cancellationToken)
         ?? throw new NotFoundException(string.Format(_localizer["payment.notfound"], request.Id));
 }

@@ -6,7 +6,7 @@ public class GetOrderStatusRequest : IRequest<OrderStatusDetailsDto>
     public Guid Id { get; set; }
 }
 
-public class OrderStatusByIdSpec : Specification<Domain.Catalog.OrderStatus, OrderStatusDto>, ISingleResultSpecification
+public class OrderStatusByIdSpec : Specification<Domain.Catalog.OrderStatus, OrderStatusDetailsDto>, ISingleResultSpecification
 {
     public OrderStatusByIdSpec(Guid id) =>
         Query.Where(p => p.Id == id)

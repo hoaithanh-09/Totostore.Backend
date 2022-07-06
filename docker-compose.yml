@@ -21,6 +21,8 @@ services:
     depends_on:
       - db
     restart: on-failure
+    networks:
+      - shared-network
 
   db:
     image: "mcr.microsoft.com/mssql/server"
@@ -32,3 +34,10 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    name: totostore-network
+    driver: bridge

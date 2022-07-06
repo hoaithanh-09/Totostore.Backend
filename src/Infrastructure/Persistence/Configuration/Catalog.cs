@@ -18,19 +18,6 @@ public class SupplierConfig : IEntityTypeConfiguration<Supplier>
     }
 }
 
-// Brands
-public class BrandConfig : IEntityTypeConfiguration<Brand>
-{
-    public void Configure(EntityTypeBuilder<Brand> builder)
-    {
-        builder.IsMultiTenant();
-
-        builder
-            .Property(b => b.Name)
-            .HasMaxLength(256);
-    }
-}
-
 public class ProductConfig : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
@@ -58,9 +45,9 @@ public class CartConfig : IEntityTypeConfiguration<Cart>
     {
         builder.IsMultiTenant();
         builder
-            .HasOne(x => x.Customer)
+            .HasOne(x => x.User)
             .WithMany(x => x.Carts)
-            .HasForeignKey(x => x.CustomerId)
+            .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder
@@ -72,9 +59,9 @@ public class CartConfig : IEntityTypeConfiguration<Cart>
 }
 
 // Category
-public class CategoryConfig : IEntityTypeConfiguration<Category>
+public class CategoryConfig : IEntityTypeConfiguration<CategoryDetailDto>
 {
-    public void Configure(EntityTypeBuilder<Category> builder)
+    public void Configure(EntityTypeBuilder<CategoryDetailDto> builder)
     {
         builder.IsMultiTenant();
 
@@ -160,6 +147,11 @@ public class CustomerConfig : IEntityTypeConfiguration<Customer>
             .WithMany(x => x.Customers)
             .HasForeignKey(x => x.AddressId)
             .OnDelete(DeleteBehavior.NoAction);
+        builder
+           .HasOne(x => x.User)
+           .WithMany(x => x.Customers)
+           .HasForeignKey(x => x.UserId)
+           .OnDelete(DeleteBehavior.NoAction);
     }
 }
 
@@ -173,12 +165,6 @@ public class NotificationConfig : IEntityTypeConfiguration<Notification>
             .HasOne(x => x.Customer)
             .WithMany(x => x.Notifications)
             .HasForeignKey(x => x.CustomerId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder
-            .HasOne(x => x.Shipper)
-            .WithMany(x => x.Notifications)
-            .HasForeignKey(X => X.ShipperId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
@@ -285,6 +271,11 @@ public class ProductPriceConfig : IEntityTypeConfiguration<ProductPrice>
             .WithMany(x => x.ProductPrices)
             .HasForeignKey(x => x.ProductId)
             .OnDelete(DeleteBehavior.Cascade);
+        builder
+            .HasOne(x => x.Coupon)
+            .WithMany(x => x.ProductPrices)
+            .HasForeignKey(x => x.CouponId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
 
@@ -336,12 +327,7 @@ public class OrderProductConfig : IEntityTypeConfiguration<OrderProduct>
             .WithMany(x => x.OrderProducts)
             .HasForeignKey(x => x.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
-
-        builder
-            .HasOne(x => x.ProductPrice)
-            .WithMany(x => x.OrderProducts)
-            .HasForeignKey(x => x.ProductPriceId)
-            .OnDelete(DeleteBehavior.NoAction);
+      
     }
 }
 

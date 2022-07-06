@@ -6,7 +6,7 @@ public class GetOrderPaymentRequest : IRequest<OrderPaymentDetailsDto>
     public Guid Id { get; set; }
 }
 
-public class OrderPaymentByIdSpec : Specification<OrderPayment, OrderPaymentDto>, ISingleResultSpecification
+public class OrderPaymentByIdSpec : Specification<OrderPayment, OrderPaymentDetailsDto>, ISingleResultSpecification
 {
     public OrderPaymentByIdSpec(Guid id) =>
         Query.Where(p => p.Id == id)

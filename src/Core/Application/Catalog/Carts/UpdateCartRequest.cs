@@ -6,23 +6,19 @@ public class UpdateCartRequest : IRequest<Guid>
 {
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }
-    public Guid CustomerId { get; set; }
+    public string UserId { get; set; }
     public int Quantity { get; set; }
     public decimal Price { get; set; }
 }
 
 public class UpdateCartRequestValidator : CustomValidator<UpdateCartRequest>
 {
-    public UpdateCartRequestValidator(IReadRepository<Cart> cartRepo, IReadRepository<Customer> customerRepo,
+    public UpdateCartRequestValidator(IReadRepository<Cart> cartRepo, 
         IReadRepository<Product> productRepo, IStringLocalizer<UpdateCartRequestValidator> localizer)
     {
-        RuleFor(p => p.CustomerId)
-            .NotEmpty()
-            .MustAsync(async (id, ct) => await customerRepo.GetByIdAsync(id, ct) is not null)
-            .WithMessage((_, id) => string.Format(localizer["customer.notfound"], id));
         RuleFor(p => p.ProductId)
             .NotEmpty()
-            .MustAsync(async (id, ct) => await customerRepo.GetByIdAsync(id, ct) is not null)
+            .MustAsync(async (id, ct) => await productRepo.GetByIdAsync(id, ct) is not null)
             .WithMessage((_, id) => string.Format(localizer["product.notfound"], id));
     }
 }
@@ -44,7 +40,7 @@ public class UpdateCartRequestHandler : IRequestHandler<UpdateCartRequest, Guid>
 
         _ = cart ?? throw new NotFoundException(string.Format(_localizer["cart.notfound"], request.Id));
 
-        cart.Update(request.ProductId, request.CustomerId, request.Quantity, request.Price);
+        cart.Update(request.ProductId, request.UserId, request.Quantity, request.Price);
         // Add Domain Events to be raised after the commit
         cart.DomainEvents.Add(EntityUpdatedEvent.WithEntity(cart));
 

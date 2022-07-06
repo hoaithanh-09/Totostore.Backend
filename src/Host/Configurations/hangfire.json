@@ -21,7 +21,7 @@
     },
     "Storage": {
       "StorageProvider": "mssql",
-      "ConnectionString": "Data Source=localhost,1433;Initial Catalog=ToToStore;User=sa;Password=Totoro_Store_Computer@2022;MultipleActiveResultSets=true",
+      "ConnectionString": "Data Source=172.105.124.20,1433;Initial Catalog=ToToStore;User=sa;Password=Totoro_Store_Computer@2022;MultipleActiveResultSets=true",
       "Options": {
         "CommandBatchMaxTimeout": "00:05:00",
         "QueuePollInterval": "00:00:01",

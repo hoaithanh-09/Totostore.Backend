@@ -4,11 +4,11 @@ using Totostore.Backend.Application.Common.Events;
 using Totostore.Backend.Application.Common.Interfaces;
 using Totostore.Backend.Domain.Common.Contracts;
 using Totostore.Backend.Infrastructure.Auditing;
-using Totostore.Backend.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Options;
+using Totostore.Backend.Domain.Identity;
 
 namespace Totostore.Backend.Infrastructure.Persistence.Context;
 
@@ -56,10 +56,10 @@ public abstract class BaseDbContext : MultiTenantIdentityDbContext<ApplicationUs
         // Or uncomment the next line if you want to see them in the console
         // optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
 
-        if (!string.IsNullOrWhiteSpace(TenantInfo?.ConnectionString))
-        {
-            optionsBuilder.UseDatabase(_dbSettings.DBProvider!, TenantInfo.ConnectionString);
-        }
+        // if (!string.IsNullOrWhiteSpace(TenantInfo?.ConnectionString))
+        // {
+        //     optionsBuilder.UseDatabase(_dbSettings.DBProvider!, TenantInfo.ConnectionString);
+        // }
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

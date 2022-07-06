@@ -5,6 +5,11 @@
         <AssemblyName>Totostore.Backend.Infrastructure</AssemblyName>
     </PropertyGroup>
     <ItemGroup>
+      <Compile Remove="Catalog\**" />
+      <EmbeddedResource Remove="Catalog\**" />
+      <None Remove="Catalog\**" />
+    </ItemGroup>
+    <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
     <ItemGroup>
@@ -61,8 +66,5 @@
     <ItemGroup>
         <ProjectReference Include="..\Core\Application\Application.csproj" />
         <ProjectReference Include="..\Core\Domain\Domain.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <None Update="Catalog\*.json" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
 </Project>

@@ -16,7 +16,7 @@ public class UpdateCategoryRequest : IRequest<Guid>
 
 public class UpdateCategoryRequestValidator : CustomValidator<UpdateCategoryRequest>
 {
-    public UpdateCategoryRequestValidator(IReadRepository<Category> repository,
+    public UpdateCategoryRequestValidator(IReadRepository<CategoryDetailDto> repository,
         IStringLocalizer<UpdateCategoryRequestValidator> localizer) =>
         RuleFor(p => p.Name)
             .NotEmpty()
@@ -30,9 +30,9 @@ public class UpdateCategoryRequestHandler : IRequestHandler<UpdateCategoryReques
     private readonly IStringLocalizer<UpdateCategoryRequestHandler> _localizer;
 
     // Add Domain Events automatically by using IRepositoryWithEvents
-    private readonly IRepositoryWithEvents<Category> _repository;
+    private readonly IRepositoryWithEvents<CategoryDetailDto> _repository;
 
-    public UpdateCategoryRequestHandler(IRepositoryWithEvents<Category> repository,
+    public UpdateCategoryRequestHandler(IRepositoryWithEvents<CategoryDetailDto> repository,
         IStringLocalizer<UpdateCategoryRequestHandler> localizer) =>
         (_repository, _localizer) = (repository, localizer);
 

@@ -9,13 +9,13 @@ public class CreateCategoryRequest : IRequest<Guid>
     public int Level { get; set; }
     public int Order { get; set; }
     public string? Description { get; set; }
-    public Guid ParentId { get; set; }
+    public Guid? ParentId { get; set; }
     public bool IsShowed { get; set; }
 }
 
 public class CreateCategoryRequestValidator : CustomValidator<CreateCategoryRequest>
 {
-    public CreateCategoryRequestValidator(IReadRepository<Category> repository,
+    public CreateCategoryRequestValidator(IReadRepository<CategoryDetailDto> repository,
         IStringLocalizer<CreateCategoryRequestValidator> localizer) =>
         RuleFor(p => p.Name)
             .NotEmpty()
@@ -27,14 +27,14 @@ public class CreateCategoryRequestValidator : CustomValidator<CreateCategoryRequ
 public class CreateCategoryRequestHandler : IRequestHandler<CreateCategoryRequest, Guid>
 {
     private readonly IFileStorageService _file;
-    private readonly IRepository<Category> _repository;
+    private readonly IRepository<CategoryDetailDto> _repository;
 
-    public CreateCategoryRequestHandler(IRepository<Category> repository, IFileStorageService file) =>
+    public CreateCategoryRequestHandler(IRepository<CategoryDetailDto> repository, IFileStorageService file) =>
         (_repository, _file) = (repository, file);
 
     public async Task<Guid> Handle(CreateCategoryRequest request, CancellationToken cancellationToken)
     {
-        var category = new Category(request.Name, request.Slug, request.Level, request.Order, request.Description,
+        var category = new CategoryDetailDto(request.Name, request.Slug, request.Level, request.Order, request.Description,
             request.ParentId, request.IsShowed);
 
         // Add Domain Events to be raised after the commit
