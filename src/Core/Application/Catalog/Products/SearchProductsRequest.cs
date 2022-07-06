@@ -4,64 +4,71 @@ using Totostore.Backend.Shared.Enums;
 
 namespace Totostore.Backend.Application.Catalog.Products;
 
-public class SearchProductsRequest : PaginationFilter, IRequest<PaginationResponse<ProductViewModel>>
+public class SearchProductsRequest : PaginationFilter, IRequest<PaginationResponse<ProductDetailsDto>>
 {
     public List<Guid>? CategoryIds { get; set; }
     public Status? Status { get; set; }
     public Guid? SupplierId { get; set; }
-    public decimal? MinimumRate { get; set; }
-    public decimal? MaximumRate { get; set; }
+    public bool? IsSortRate { get; set; }
+    public decimal? MinPrice { get; set; }
+    public decimal? MaxPrice { get; set; }
 
 }
 
-//public class SearchProductsRequestHandler : IRequestHandler<SearchProductsRequest, PaginationResponse<ProductViewModel>>
-//{
-//    private readonly IReadRepository<Product> _productRepo;
-//    private readonly IReadRepository<CategoryProduct> _categoryProductRepo;
-//    private readonly IMapper _mapper;
+public class ProductsBySearchRequestSpec : EntitiesByPaginationFilterSpec<Product, ProductDetailsDto>
+{
+    private readonly IReadRepository<CategoryProduct> _categoryProductRepo;
+    private readonly IReadRepository<ProductPrice> _productPriceRepo;
+    public ProductsBySearchRequestSpec(SearchProductsRequest request)
+        : base(request)
+    {
+        Query.OrderBy(x => x.CreatedOn);
+        if (request.Status.HasValue)
+        {
+            Query.Where(x => x.Status == request.Status.Value);
+        }
 
-//    public SearchProductsRequestHandler(IReadRepository<Product> productRepo, IMapper mapper,
-//        IReadRepository<CategoryProduct> categoryProductRepo)
-//        => (_productRepo, _categoryProductRepo, _mapper) = (productRepo, categoryProductRepo, mapper);
+        if (request.SupplierId.HasValue)
+        {
+            Query.Where(x => x.SupplierId == request.SupplierId.Value);
+        }
 
-//    public async Task<PaginationResponse<ProductViewModel>> Handle(SearchProductsRequest request,
-//        CancellationToken cancellationToken)
-//    {
-//        var query = await _productRepo.ListAsync();
-//        if (request.CategoryIds.Count() != 0)
-//        {
-//            int count = request.CategoryIds.Count();
-//            for (var i = 1; i <= count; i++)
-//            {
-//                var categoryProducts = await _categoryProductRepo
-//                    .ListAsync(new ProductsByCategorySpec(request.CategoryIds[i]), cancellationToken);
-//                query = categoryProducts.Select(x => x.Product).ToList();
-//            }
-//        }
-//        if (request.SupplierId.HasValue)
-//        {
-//            query = query.Where(x => x.SupplierId != null && x.SupplierId == request.SupplierId.Value)
-//                .OrderBy(x => x.Name).ToList();
-//        }
-//        else if (request.Status.HasValue)
-//        {
-//            query = query.Where(x => x.Status == request.Status.Value).OrderBy(x => x.Name).ToList();
-//        }
-//        else if (request.MinimumRate.HasValue)
-//        {
-//            query = query.Where(x => x.Rate >= request.MinimumRate.Value).OrderBy(x => x.Name).ToList();
-//        }
-//        else if (request.MaximumRate.HasValue)
-//        {
-//            query = query.Where(x => x.Rate <= request.MaximumRate.Value).OrderBy(x => x.Name).ToList();
-//        }
-//        else
-//        {
-//            query = query.OrderBy(x => x.Name).ToList();
-//        }
+        if (request.IsSortRate.HasValue && request.IsSortRate == true)
+        {
+            Query.OrderByDescending(x => x.Rate);
+        }
 
-//        var result = _mapper.Map<List<Product>, List<ProductViewModel>>(query.ToList());
-//        return await _productRepo.NewPaginatedListAsync(result, request.PageNumber, request.PageSize,
-//            cancellationToken: cancellationToken);
-//    }
-//}
+        if (request.CategoryIds != null)
+        {
+            foreach (var item in request.CategoryIds)
+            {
+                var categoryProd = _categoryProductRepo
+                    .ListAsync(new ProductsByCategorySpec(item))
+                    .Result.Select(x => x.ProductId);
+                Query.Where(x => categoryProd.Contains(x.Id));
+            }
+        }
+        if (request.MinPrice.HasValue && request.MaxPrice.HasValue)
+        {
+            Query.Where(x => x.ProductPrices.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Amount >= request.MinPrice.Value &&
+                             x.ProductPrices.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Amount <= request.MaxPrice.Value);
+        }
+
+    }
+}
+
+public class SearchProductsRequestHandler : IRequestHandler<SearchProductsRequest, PaginationResponse<ProductDetailsDto>>
+{
+    private readonly IReadRepository<Product> _productRepo;
+    private readonly IReadRepository<CategoryProduct> _categoryProductRepo;
+    private readonly IMapper _mapper;
+
+    public SearchProductsRequestHandler(IReadRepository<Product> productRepo) => _productRepo = productRepo;
+
+    public async Task<PaginationResponse<ProductDetailsDto>> Handle(SearchProductsRequest request,
+        CancellationToken cancellationToken)
+    {
+        var spec = new ProductsBySearchRequestSpec(request);
+        return await _productRepo.PaginatedListAsync(spec, request.PageNumber, request.PageSize, cancellationToken);
+    }
+}

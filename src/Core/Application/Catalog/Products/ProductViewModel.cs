@@ -18,5 +18,5 @@ public class ProductViewModel : IDto
     public List<ProductImage> ProductImages { get; set; } = default!;
     public ProductPrice Price { get; set; } = default!;
     public Guid CategoryId { get; set; }
-    public virtual Category Category { get; private set; } = default!;
+    public virtual CategoryDetailDto Category { get; private set; } = default!;
 }

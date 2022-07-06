@@ -5,6 +5,7 @@ namespace Totostore.Backend.Host.Controllers.Catalog;
 public class CategoriesController : VersionedApiController
 {
     [HttpPost("search")]
+  
     [MustHavePermission(FSHAction.Search, FSHResource.Categories)]
     [OpenApiOperation("Search categories using available filters.", "")]
     public Task<PaginationResponse<CategoryDto>> SearchAsync(SearchCategoriesRequest request)
@@ -13,7 +14,7 @@ public class CategoriesController : VersionedApiController
     }
 
     [HttpGet("{id:guid}")]
-    [MustHavePermission(FSHAction.View, FSHResource.Categories)]
+   // [MustHavePermission(FSHAction.View, FSHResource.Categories)]
     [OpenApiOperation("Get category details.", "")]
     public Task<CategoryDto> GetAsync(Guid id)
     {
@@ -21,7 +22,7 @@ public class CategoriesController : VersionedApiController
     }
 
     [HttpPost]
-    [MustHavePermission(FSHAction.Create, FSHResource.Categories)]
+    //[MustHavePermission(FSHAction.Create, FSHResource.Categories)]
     [OpenApiOperation("Create a new category.", "")]
     public Task<Guid> CreateAsync(CreateCategoryRequest request)
     {

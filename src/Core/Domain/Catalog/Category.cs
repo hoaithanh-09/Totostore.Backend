@@ -1,8 +1,8 @@
 namespace Totostore.Backend.Domain.Catalog;
 
-public class Category : AuditableEntity, IAggregateRoot
+public class CategoryDetailDto : AuditableEntity, IAggregateRoot
 {
-    public Category(string name, string? slug, int level, int order, string? description, Guid? parentId, bool isShowed)
+    public CategoryDetailDto(string name, string? slug, int level, int order, string? description, Guid? parentId, bool isShowed)
     {
         Name = name;
         Slug = slug;
@@ -22,7 +22,7 @@ public class Category : AuditableEntity, IAggregateRoot
     public bool IsShowed { get; set; }
     public virtual List<CategoryProduct> CategoryProducts { get; set; } = default!;
 
-    public Category Update(string? name, string? slug, int? level, int? order, string? description, Guid? parentId,
+    public CategoryDetailDto Update(string? name, string? slug, int? level, int? order, string? description, Guid? parentId,
         bool? isShowed)
     {
         if (name is not null && Name?.Equals(name) is not true) Name = name;

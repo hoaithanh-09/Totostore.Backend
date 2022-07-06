@@ -16,6 +16,8 @@ public class CreateCustomerRequest : IRequest<Guid>
     public string District { get; set; } = default!;
     public string Ward { get; set; } = default!;
     public string StayingAddress { get; set; } = default!;
+    public Guid? CouponId { get; set; }
+    public decimal Amount { get; set; }
 }
 
 public class CreateCustomerRequestValidator : CustomValidator<CreateCustomerRequest>
