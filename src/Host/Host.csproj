@@ -39,4 +39,5 @@
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
+    <ProjectExtensions><VisualStudio><UserProperties configurations_4database_1json__JsonSchema="https://docs.gradle.com/enterprise/admin/schema/gradle-enterprise-config-schema-4.json" /></VisualStudio></ProjectExtensions>
 </Project>

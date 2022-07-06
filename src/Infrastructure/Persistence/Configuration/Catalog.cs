@@ -18,7 +18,6 @@ public class SupplierConfig : IEntityTypeConfiguration<Supplier>
     }
 }
 
-
 public class ProductConfig : IEntityTypeConfiguration<Product>
 {
     public void Configure(EntityTypeBuilder<Product> builder)
@@ -46,9 +45,9 @@ public class CartConfig : IEntityTypeConfiguration<Cart>
     {
         builder.IsMultiTenant();
         builder
-            .HasOne(x => x.Customer)
+            .HasOne(x => x.User)
             .WithMany(x => x.Carts)
-            .HasForeignKey(x => x.CustomerId)
+            .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder
@@ -148,6 +147,11 @@ public class CustomerConfig : IEntityTypeConfiguration<Customer>
             .WithMany(x => x.Customers)
             .HasForeignKey(x => x.AddressId)
             .OnDelete(DeleteBehavior.NoAction);
+        builder
+           .HasOne(x => x.User)
+           .WithMany(x => x.Customers)
+           .HasForeignKey(x => x.UserId)
+           .OnDelete(DeleteBehavior.NoAction);
     }
 }
 
@@ -161,12 +165,6 @@ public class NotificationConfig : IEntityTypeConfiguration<Notification>
             .HasOne(x => x.Customer)
             .WithMany(x => x.Notifications)
             .HasForeignKey(x => x.CustomerId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder
-            .HasOne(x => x.Shipper)
-            .WithMany(x => x.Notifications)
-            .HasForeignKey(X => X.ShipperId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
@@ -274,10 +272,10 @@ public class ProductPriceConfig : IEntityTypeConfiguration<ProductPrice>
             .HasForeignKey(x => x.ProductId)
             .OnDelete(DeleteBehavior.Cascade);
         builder
-           .HasOne(x => x.Coupon)
-           .WithMany(x => x.ProductPrices)
-           .HasForeignKey(x => x.CouponId)
-           .OnDelete(DeleteBehavior.NoAction);
+            .HasOne(x => x.Coupon)
+            .WithMany(x => x.ProductPrices)
+            .HasForeignKey(x => x.CouponId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
 

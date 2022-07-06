@@ -6,6 +6,7 @@ using Totostore.Backend.Shared.Multitenancy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Totostore.Backend.Domain.Identity;
 
 namespace Totostore.Backend.Infrastructure.Persistence.Initialization;
 

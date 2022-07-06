@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Totostore.Backend.Domain.Catalog;
 
 public class ProductPrice : AuditableEntity, IAggregateRoot
@@ -10,10 +12,12 @@ public class ProductPrice : AuditableEntity, IAggregateRoot
     }
 
     public Guid ProductId { get; set; }
+
+    [ForeignKey("CouponId")]
     public Guid? CouponId { get; set; }
     public decimal Amount { get; set; }
-    public virtual Product Product { get; set; } = default!;
-    public virtual Coupon Coupon { get; set; } = default!;
+    public virtual Product Product { get; set; } 
+    public Coupon? Coupon { get; set; }
 
 
     public ProductPrice Update(Guid? productId, Guid? couponId, decimal? amount)

@@ -1,3 +1,4 @@
+using MapsterMapper;
 using Totostore.Backend.Domain.Common.Events;
 
 namespace Totostore.Backend.Application.Catalog.ProductPrices;
@@ -11,13 +12,12 @@ public class CreateProductPriceRequest : IRequest<Guid>
 
 public class CreateProductPriceRequestValidator : CustomValidator<CreateProductPriceRequest>
 {
-    public CreateProductPriceRequestValidator(IReadRepository<ProductPrice> productPriceRepo,
-        IReadRepository<Product> productRepo, IStringLocalizer<CreateProductPriceRequestValidator> localizer)
+    public CreateProductPriceRequestValidator(IReadRepository<ProductPrice> productPriceRepo, IReadRepository<Product> productRepo, IStringLocalizer<CreateProductPriceRequestValidator> localizer)
     {
         RuleFor(p => p.ProductId)
-            .NotEmpty()
-            .MustAsync(async (id, ct) => await productRepo.GetByIdAsync(id, ct) is not null)
-            .WithMessage((_, id) => string.Format(localizer["product.notfound"], id));
+           .NotEmpty()
+           .MustAsync(async (id, ct) => await productRepo.GetByIdAsync(id, ct) is not null)
+           .WithMessage((_, id) => string.Format(localizer["product.notfound"], id));
     }
 }
 
@@ -31,9 +31,7 @@ public class CreateProductPriceRequestHandler : IRequestHandler<CreateProductPri
 
     public async Task<Guid> Handle(CreateProductPriceRequest request, CancellationToken cancellationToken)
     {
-        var productPrice =
-            new ProductPrice(request.ProductId, request.CouponId, request.Amount);
-
+        var productPrice = new ProductPrice(request.ProductId, request.CouponId, request.Amount);
         // Add Domain Events to be raised after the commit
         productPrice.DomainEvents.Add(EntityCreatedEvent.WithEntity(productPrice));
 

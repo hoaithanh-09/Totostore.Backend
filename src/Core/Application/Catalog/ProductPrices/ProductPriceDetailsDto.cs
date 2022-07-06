@@ -10,5 +10,5 @@ public class ProductPriceDetailsDto : IDto
     public Guid? CouponId { get; set; }
     public decimal Amount { get; set; }
     public ProductDto Product { get; set; } = default!;
-    public CouponDto Coupon { get; set; } = default!;
+    public CouponDto? Coupon { get; set; }
 }

@@ -18,9 +18,7 @@ public class Shipper : AuditableEntity, IAggregateRoot
     public string PhoneNumber { get; set; } = default!;
     public Guid AddressId { get; set; }
     public virtual Address Address { get; set; } = default!;
-    public virtual List<Notification> Notifications { get; set; } = default!;
     public virtual List<Order> Orders { get; set; } = default!;
-
     public Shipper Update(string? name, DateTime? dob, bool? gender, string? mail, string? phoneNumber, Guid? addressId)
     {
         if (name is not null && Name?.Equals(name) is not true) Name = name;

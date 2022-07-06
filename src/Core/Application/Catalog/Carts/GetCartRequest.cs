@@ -10,7 +10,7 @@ public class CartByIdSpec : Specification<Cart, CartDetailsDto>, ISingleResultSp
 {
     public CartByIdSpec(Guid id) =>
         Query.Where(p => p.Id == id)
-            .Include(p => p.Customer)
+            .Include(p => p.UserId)
             .Include(p => p.Product);
 }
 

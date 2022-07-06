@@ -4,7 +4,7 @@ namespace Totostore.Backend.Domain.Catalog;
 
 public class Customer : AuditableEntity, IAggregateRoot
 {
-    public Customer(string name, DateTime dob, bool gender, string mail, string phoneNumber, Guid addressId, Guid userId)
+    public Customer(string name, DateTime dob, bool gender, string mail, string phoneNumber, Guid addressId, string userId)
     {
         Name = name;
         Dob = dob;
@@ -21,14 +21,14 @@ public class Customer : AuditableEntity, IAggregateRoot
     public string Mail { get; set; } = default!;
     public string PhoneNumber { get; set; } = default!;
     public Guid AddressId { get; set; }
-    public Guid UserId { get; set; }
+    public string UserId { get; set; }
+    public virtual ApplicationUser User { get; set; }
     public virtual Address Address { get; set; } = default!;
     public virtual List<Notification> Notifications { get; set; } = default!;
-    public virtual List<Cart> Carts { get; set; } = default!;
     public virtual List<Order> Orders { get; set; } = default!;
 
     public Customer Update(string? name, DateTime? dob, bool? gender, string? mail, string? phoneNumber,
-        Guid? addressId)
+        Guid? addressId, string? userId)
     {
         if (name is not null && Name?.Equals(name) is not true) Name = name;
         if (dob.HasValue && Dob != dob) Dob = dob.Value;
@@ -37,6 +37,7 @@ public class Customer : AuditableEntity, IAggregateRoot
         if (phoneNumber is not null && PhoneNumber?.Equals(phoneNumber) is not true) PhoneNumber = phoneNumber;
         if (addressId.HasValue && addressId.Value != Guid.Empty && !AddressId.Equals(addressId.Value))
             AddressId = addressId.Value;
+        if (userId is not null && User?.Equals(UserId) is not true) UserId = userId;
         return this;
     }
 

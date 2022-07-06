@@ -4,6 +4,7 @@ using Totostore.Backend.Infrastructure.Common;
 using Totostore.Backend.Shared.Multitenancy;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Totostore.Backend.Domain.Identity;
 
 namespace Totostore.Backend.Infrastructure.Identity;
 
@@ -17,7 +18,7 @@ internal partial class UserService
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         const string route = "api/users/confirm-email/";
         var endpointUri = new Uri(string.Concat($"{origin}/", route));
-        string verificationUri = QueryHelpers.AddQueryString(endpointUri.ToString(), QueryStringKeys.UserId, user.Id);
+        string verificationUri = QueryHelpers.AddQueryString(endpointUri.ToString(), QueryStringKeys.UserId, user.Id.ToString());
         verificationUri = QueryHelpers.AddQueryString(verificationUri, QueryStringKeys.Code, code);
         verificationUri = QueryHelpers.AddQueryString(verificationUri, MultitenancyConstants.TenantIdName, _currentTenant.Id!);
         return verificationUri;
@@ -28,7 +29,7 @@ internal partial class UserService
         EnsureValidTenant();
 
         var user = await _userManager.Users
-            .Where(u => u.Id == userId && !u.EmailConfirmed)
+            .Where(u => u.Id.ToString() == userId && !u.EmailConfirmed)
             .FirstOrDefaultAsync(cancellationToken);
 
         _ = user ?? throw new InternalServerException(_localizer["An error occurred while confirming E-Mail."]);

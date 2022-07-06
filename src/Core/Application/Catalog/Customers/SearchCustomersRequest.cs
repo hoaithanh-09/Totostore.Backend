@@ -2,7 +2,7 @@ namespace Totostore.Backend.Application.Catalog.Customers;
 
 public class SearchCustomersRequest : PaginationFilter, IRequest<PaginationResponse<CustomerDto>>
 {
-    public Guid? UserId { get; set; }
+    public string? UserId { get; set; }
 }
 
 public class CustomersBySearchRequestSpec : EntitiesByPaginationFilterSpec<Customer, CustomerDto>
@@ -11,7 +11,7 @@ public class CustomersBySearchRequestSpec : EntitiesByPaginationFilterSpec<Custo
         : base(request)
     {
         Query.OrderBy(c => c.Name, !request.HasOrderBy());
-        if(request.UserId.HasValue)
+        if (request.UserId != null)
         {
             Query.Where(x => x.UserId == request.UserId);
         }

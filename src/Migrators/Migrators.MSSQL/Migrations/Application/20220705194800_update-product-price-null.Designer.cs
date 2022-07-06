@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Totostore.Backend.Infrastructure.Persistence.Context;
 
@@ -11,9 +12,10 @@ using Totostore.Backend.Infrastructure.Persistence.Context;
 namespace Migrators.MSSQL.Migrations.Application
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220705194800_update-product-price-null")]
+    partial class updateproductpricenull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -205,6 +207,9 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -231,15 +236,11 @@ namespace Migrators.MSSQL.Migrations.Application
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("CustomerId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Carts", "Catalog");
 
@@ -287,7 +288,7 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ParentId")
+                    b.Property<Guid>("ParentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Slug")
@@ -416,6 +417,9 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.Property<Guid>("AddressId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -458,15 +462,14 @@ namespace Migrators.MSSQL.Migrations.Application
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Customers", "Catalog");
 
@@ -576,7 +579,8 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CustomerId")
+                    b.Property<Guid?>("CustomerId")
+                        .IsRequired()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("DeletedBy")
@@ -591,6 +595,10 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.Property<DateTime?>("LastModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("ShipperId")
+                        .IsRequired()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("TenantId")
                         .IsRequired()
                         .HasMaxLength(64)
@@ -603,6 +611,8 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("ShipperId");
 
                     b.ToTable("Notifications", "Catalog");
 
@@ -1084,7 +1094,7 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid?>("CouponId")
+                    b.Property<Guid>("CouponId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CreatedBy")
@@ -1233,7 +1243,49 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.HasAnnotation("Finbuckle:MultiTenant", true);
                 });
 
-            modelBuilder.Entity("Totostore.Backend.Domain.Identity.ApplicationRole", b =>
+            modelBuilder.Entity("Totostore.Backend.Infrastructure.Auditing.Trail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AffectedColumns")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NewValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrimaryKey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TableName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenantId")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditTrails", "Auditing");
+
+                    b.HasAnnotation("Finbuckle:MultiTenant", true);
+                });
+
+            modelBuilder.Entity("Totostore.Backend.Infrastructure.Identity.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -1270,7 +1322,7 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.HasAnnotation("Finbuckle:MultiTenant", true);
                 });
 
-            modelBuilder.Entity("Totostore.Backend.Domain.Identity.ApplicationRoleClaim", b =>
+            modelBuilder.Entity("Totostore.Backend.Infrastructure.Identity.ApplicationRoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1308,7 +1360,7 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.HasAnnotation("Finbuckle:MultiTenant", true);
                 });
 
-            modelBuilder.Entity("Totostore.Backend.Domain.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("Totostore.Backend.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -1402,51 +1454,9 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.HasAnnotation("Finbuckle:MultiTenant", true);
                 });
 
-            modelBuilder.Entity("Totostore.Backend.Infrastructure.Auditing.Trail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AffectedColumns")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("NewValues")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OldValues")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PrimaryKey")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TableName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TenantId")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AuditTrails", "Auditing");
-
-                    b.HasAnnotation("Finbuckle:MultiTenant", true);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Totostore.Backend.Domain.Identity.ApplicationUser", null)
+                    b.HasOne("Totostore.Backend.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1455,7 +1465,7 @@ namespace Migrators.MSSQL.Migrations.Application
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Totostore.Backend.Domain.Identity.ApplicationUser", null)
+                    b.HasOne("Totostore.Backend.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1464,13 +1474,13 @@ namespace Migrators.MSSQL.Migrations.Application
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Totostore.Backend.Domain.Identity.ApplicationRole", null)
+                    b.HasOne("Totostore.Backend.Infrastructure.Identity.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Totostore.Backend.Domain.Identity.ApplicationUser", null)
+                    b.HasOne("Totostore.Backend.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1479,7 +1489,7 @@ namespace Migrators.MSSQL.Migrations.Application
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Totostore.Backend.Domain.Identity.ApplicationUser", null)
+                    b.HasOne("Totostore.Backend.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1488,21 +1498,21 @@ namespace Migrators.MSSQL.Migrations.Application
 
             modelBuilder.Entity("Totostore.Backend.Domain.Catalog.Cart", b =>
                 {
+                    b.HasOne("Totostore.Backend.Domain.Catalog.Customer", "Customer")
+                        .WithMany("Carts")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Totostore.Backend.Domain.Catalog.Product", "Product")
                         .WithMany("Carts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Totostore.Backend.Domain.Identity.ApplicationUser", "User")
-                        .WithMany("Carts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Customer");
 
                     b.Navigation("Product");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Totostore.Backend.Domain.Catalog.CategoryProduct", b =>
@@ -1532,15 +1542,11 @@ namespace Migrators.MSSQL.Migrations.Application
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Totostore.Backend.Domain.Identity.ApplicationUser", "User")
+                    b.HasOne("Totostore.Backend.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany("Customers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationUserId");
 
                     b.Navigation("Address");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Totostore.Backend.Domain.Catalog.Notification", b =>
@@ -1551,7 +1557,15 @@ namespace Migrators.MSSQL.Migrations.Application
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Totostore.Backend.Domain.Catalog.Shipper", "Shipper")
+                        .WithMany("Notifications")
+                        .HasForeignKey("ShipperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Customer");
+
+                    b.Navigation("Shipper");
                 });
 
             modelBuilder.Entity("Totostore.Backend.Domain.Catalog.Order", b =>
@@ -1699,7 +1713,8 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.HasOne("Totostore.Backend.Domain.Catalog.Coupon", "Coupon")
                         .WithMany("ProductPrices")
                         .HasForeignKey("CouponId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Totostore.Backend.Domain.Catalog.Product", "Product")
                         .WithMany("ProductPrices")
@@ -1730,9 +1745,9 @@ namespace Migrators.MSSQL.Migrations.Application
                         .HasForeignKey("AddressId");
                 });
 
-            modelBuilder.Entity("Totostore.Backend.Domain.Identity.ApplicationRoleClaim", b =>
+            modelBuilder.Entity("Totostore.Backend.Infrastructure.Identity.ApplicationRoleClaim", b =>
                 {
-                    b.HasOne("Totostore.Backend.Domain.Identity.ApplicationRole", null)
+                    b.HasOne("Totostore.Backend.Infrastructure.Identity.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1766,6 +1781,8 @@ namespace Migrators.MSSQL.Migrations.Application
 
             modelBuilder.Entity("Totostore.Backend.Domain.Catalog.Customer", b =>
                 {
+                    b.Navigation("Carts");
+
                     b.Navigation("Notifications");
 
                     b.Navigation("Orders");
@@ -1809,6 +1826,8 @@ namespace Migrators.MSSQL.Migrations.Application
 
             modelBuilder.Entity("Totostore.Backend.Domain.Catalog.Shipper", b =>
                 {
+                    b.Navigation("Notifications");
+
                     b.Navigation("Orders");
                 });
 
@@ -1817,10 +1836,8 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Totostore.Backend.Domain.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("Totostore.Backend.Infrastructure.Identity.ApplicationUser", b =>
                 {
-                    b.Navigation("Carts");
-
                     b.Navigation("Customers");
                 });
 #pragma warning restore 612, 618

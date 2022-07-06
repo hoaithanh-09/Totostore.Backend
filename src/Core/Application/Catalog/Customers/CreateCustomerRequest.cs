@@ -11,7 +11,7 @@ public class CreateCustomerRequest : IRequest<Guid>
     public string Mail { get; set; } = default!;
     public string PhoneNumber { get; set; } = default!;
     public Guid AddressId { get; set; }
-    public Guid UserId { get; set; }
+    public string UserId { get; set; }
 }
 
 public class CreateCustomerRequestValidator : CustomValidator<CreateCustomerRequest>

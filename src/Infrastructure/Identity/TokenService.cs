@@ -6,7 +6,6 @@ using Totostore.Backend.Application.Common.Exceptions;
 using Totostore.Backend.Application.Identity.Tokens;
 using Totostore.Backend.Infrastructure.Auth;
 using Totostore.Backend.Infrastructure.Auth.Jwt;
-using Totostore.Backend.Infrastructure.Mailing;
 using Totostore.Backend.Infrastructure.Multitenancy;
 using Totostore.Backend.Shared.Authorization;
 using Totostore.Backend.Shared.Multitenancy;
@@ -14,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Totostore.Backend.Domain.Identity;
 
 namespace Totostore.Backend.Infrastructure.Identity;
 

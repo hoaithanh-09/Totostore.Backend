@@ -11,7 +11,7 @@ public class CustomerDetailsDto : IDto
     public bool Gender { get; set; }
     public string Mail { get; set; } = default!;
     public string PhoneNumber { get; set; } = default!;
-    public Guid UserId { get; set; }
+    public string UserId { get; set; }
     public UserDetailsDto User { get; set; }
     public Guid AddressId { get; set; }
     public AddressDto Address { get; set; } = default!;
