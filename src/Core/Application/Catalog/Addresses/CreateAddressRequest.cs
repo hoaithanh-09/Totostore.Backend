@@ -4,8 +4,11 @@ namespace Totostore.Backend.Application.Catalog.Addresses;
 
 public class CreateAddressRequest : IRequest<Guid>
 {
+    public string CityCode { get; set; } = default!;
     public string City { get; set; } = default!;
+    public string DistrictCode { get; set; } = default!;
     public string District { get; set; } = default!;
+    public string WardCode { get; set; } = default!;
     public string Ward { get; set; } = default!;
     public string StayingAddress { get; set; } = default!;
 }
@@ -28,7 +31,7 @@ public class CreateAddressRequestHandler : IRequestHandler<CreateAddressRequest,
 
     public async Task<Guid> Handle(CreateAddressRequest request, CancellationToken cancellationToken)
     {
-        var address = new Address(request.City, request.District, request.Ward, request.StayingAddress);
+        var address = new Address(request.CityCode,request.City,request.DistrictCode, request.District, request.WardCode, request.Ward, request.StayingAddress);
 
         // Add Domain Events to be raised after the commit
         address.DomainEvents.Add(EntityCreatedEvent.WithEntity(address));

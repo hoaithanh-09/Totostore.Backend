@@ -10,10 +10,13 @@ public class CreateCustomerRequest : IRequest<Guid>
     public bool Gender { get; set; }
     public string Mail { get; set; } = default!;
     public string PhoneNumber { get; set; } = default!;
-   // public Guid AddressId { get; set; }
+    // public Guid AddressId { get; set; }
     public string UserId { get; set; }
+    public string CityCode { get; set; } = default!;
     public string City { get; set; } = default!;
+    public string DistrictCode { get; set; } = default!;
     public string District { get; set; } = default!;
+    public string WardCode { get; set; } = default!;
     public string Ward { get; set; } = default!;
     public string StayingAddress { get; set; } = default!;
     public Guid? CouponId { get; set; }
@@ -42,7 +45,7 @@ public class CreateCustomerRequestHandler : IRequestHandler<CreateCustomerReques
 
     public async Task<Guid> Handle(CreateCustomerRequest request, CancellationToken cancellationToken)
     {
-        var address = new Address(request.City, request.District, request.Ward, request.StayingAddress);
+        var address = new Address(request.CityCode, request.City, request.DistrictCode, request.District, request.WardCode, request.Ward, request.StayingAddress);
         address.DomainEvents.Add(EntityCreatedEvent.WithEntity(address));
         var _address = await _addressRepository.AddAsync(address, cancellationToken);
         var customer = new Customer(request.Name, request.Dob, request.Gender, request.Mail, request.PhoneNumber, _address.Id, request.UserId);

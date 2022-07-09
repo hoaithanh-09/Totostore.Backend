@@ -5,8 +5,11 @@ namespace Totostore.Backend.Application.Catalog.Addresses;
 public class UpdateAddressRequest : IRequest<Guid>
 {
     public Guid Id { get; set; }
+    public string CityCode { get; set; } = default!;
     public string City { get; set; } = default!;
+    public string DistrictCode { get; set; } = default!;
     public string District { get; set; } = default!;
+    public string WardCode { get; set; } = default!;
     public string Ward { get; set; } = default!;
     public string StayingAddress { get; set; } = default!;
 }
@@ -36,7 +39,7 @@ public class UpdateAddressRequestHandler : IRequestHandler<UpdateAddressRequest,
 
         _ = address ?? throw new NotFoundException(string.Format(_localizer["address.notfound"], request.Id));
 
-        address.Update(request.City, request.District, request.Ward, request.StayingAddress);
+        address.Update(request.CityCode, request.City, request.DistrictCode, request.District, request.WardCode, request.Ward, request.StayingAddress);
         address.DomainEvents.Add(EntityUpdatedEvent.WithEntity(address));
 
         await _repository.UpdateAsync(address, cancellationToken);

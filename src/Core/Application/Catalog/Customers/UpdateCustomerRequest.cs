@@ -10,10 +10,13 @@ public class UpdateCustomerRequest : IRequest<Guid>
     public bool Gender { get; set; }
     public string Mail { get; set; } = default!;
     public string PhoneNumber { get; set; } = default!;
-   // public Guid AddressId { get; set; }
+    // public Guid AddressId { get; set; }
     public string UserId { get; set; }
+    public string CityCode { get; set; } = default!;
     public string City { get; set; } = default!;
+    public string DistrictCode { get; set; } = default!;
     public string District { get; set; } = default!;
+    public string WardCode { get; set; } = default!;
     public string Ward { get; set; } = default!;
     public string StayingAddress { get; set; } = default!;
 }
@@ -45,8 +48,8 @@ public class UpdateCustomerRequestHandler : IRequestHandler<UpdateCustomerReques
         var customer = await _repository.GetByIdAsync(request.Id, cancellationToken);
 
         _ = customer ?? throw new NotFoundException(string.Format(_localizer["customer.notfound"], request.Id));
-        var address= await _addressRepository.GetByIdAsync(customer.AddressId, cancellationToken);
-        address.Update(request.City, request.District, request.Ward, request.StayingAddress);
+        var address = await _addressRepository.GetByIdAsync(customer.AddressId, cancellationToken);
+        address.Update(request.CityCode, request.City, request.DistrictCode, request.District, request.WardCode, request.Ward, request.StayingAddress);
         customer.Update(request.Name, request.Dob, request.Gender, request.Mail, request.PhoneNumber,
            customer.AddressId, request.UserId);
         // Add Domain Events to be raised after the commit

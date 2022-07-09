@@ -12,6 +12,7 @@ public class SearchProductsRequest : PaginationFilter, IRequest<PaginationRespon
     public bool? IsSortRate { get; set; }
     public decimal? MinPrice { get; set; }
     public decimal? MaxPrice { get; set; }
+    public decimal? Rate { get; set; }
 
 }
 
@@ -52,6 +53,10 @@ public class ProductsBySearchRequestSpec : EntitiesByPaginationFilterSpec<Produc
         {
             Query.Where(x => x.ProductPrices.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Amount >= request.MinPrice.Value &&
                              x.ProductPrices.OrderByDescending(x => x.CreatedOn).FirstOrDefault().Amount <= request.MaxPrice.Value);
+        }
+        if(request.Rate.HasValue)
+        {
+            Query.Where(x => x.Rate >= request.Rate.Value && x.Rate <= 5);
         }
 
     }
