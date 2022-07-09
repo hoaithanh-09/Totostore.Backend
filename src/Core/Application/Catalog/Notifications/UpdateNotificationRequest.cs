@@ -7,7 +7,7 @@ public class UpdateNotificationRequest : IRequest<Guid>
     public Guid Id { get; set; }
     public string Title { get; set; } = default!;
     public string Content { get; set; } = default!;
-    public Guid CustomerId { get; set; }
+    public string UserId { get; set; }
 }
 
 public class UpdateNotificationRequestValidator : CustomValidator<UpdateNotificationRequest>
@@ -35,7 +35,7 @@ public class UpdateNotificationRequestHandler : IRequestHandler<UpdateNotificati
 
         _ = notification ?? throw new NotFoundException(string.Format(_localizer["notification.notfound"], request.Id));
 
-        notification.Update(request.Title, request.Content, request.CustomerId);
+        notification.Update(request.Title, request.Content, request.UserId);
         // Add Domain Events to be raised after the commit
         notification.DomainEvents.Add(EntityUpdatedEvent.WithEntity(notification));
 

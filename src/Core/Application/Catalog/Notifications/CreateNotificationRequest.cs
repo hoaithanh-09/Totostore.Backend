@@ -6,7 +6,8 @@ public class CreateNotificationRequest : IRequest<Guid>
 {
     public string Title { get; set; } = default!;
     public string Content { get; set; } = default!;
-    public Guid CustomerId { get; set; }
+    public string UserId { get; set; }
+
 }
 
 public class CreateNotificationRequestValidator : CustomValidator<CreateNotificationRequest>
@@ -27,7 +28,7 @@ public class CreateNotificationRequestHandler : IRequestHandler<CreateNotificati
 
     public async Task<Guid> Handle(CreateNotificationRequest request, CancellationToken cancellationToken)
     {
-        var notification = new Notification(request.Title, request.Content, request.CustomerId);
+        var notification = new Notification(request.Title, request.Content, request.UserId);
 
         // Add Domain Events to be raised after the commit
         notification.DomainEvents.Add(EntityCreatedEvent.WithEntity(notification));

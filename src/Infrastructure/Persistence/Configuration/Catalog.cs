@@ -162,9 +162,9 @@ public class NotificationConfig : IEntityTypeConfiguration<Notification>
     {
         builder.IsMultiTenant();
         builder
-            .HasOne(x => x.Customer)
+            .HasOne(x => x.User)
             .WithMany(x => x.Notifications)
-            .HasForeignKey(x => x.CustomerId)
+            .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -1,25 +1,26 @@
+using Totostore.Backend.Domain.Identity;
+
 namespace Totostore.Backend.Domain.Catalog;
 
 public class Notification : AuditableEntity, IAggregateRoot
 {
-    public Notification(string title, string content, Guid customerId)
+    public Notification(string title, string content, string userId)
     {
         Title = title;
         Content = content;
-        CustomerId = customerId;
+        UserId = userId;
     }
 
     public string Title { get; set; } = default!;
     public string Content { get; set; } = default!;
-    public Guid CustomerId { get; set; }
-    public virtual Customer Customer { get; set; } = default!;
+    public string UserId { get; set; }
+    public virtual ApplicationUser User { get; set; }
 
-    public Notification Update(string? title, string? content, Guid? customerId)
+    public Notification Update(string? title, string? content, string? userId)
     {
         if (title is not null && Title?.Equals(title) is not true) Title = title;
         if (content is not null && Content?.Equals(content) is not true) Content = content;
-        if (customerId.HasValue && customerId.Value != Guid.Empty && !CustomerId.Equals(customerId.Value))
-            CustomerId = customerId.Value;
+        if (userId is not null && UserId?.Equals(userId) is not true) UserId = userId;
         return this;
     }
 }

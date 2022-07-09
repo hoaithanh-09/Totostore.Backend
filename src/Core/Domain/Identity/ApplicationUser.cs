@@ -13,4 +13,5 @@ public class ApplicationUser : IdentityUser
     public string? ObjectId { get; set; }
     public virtual List<Customer> Customers { get; set; }
     public virtual List<Cart> Carts { get; set; }
+    public virtual List<Notification> Notifications { get; set; } = default!;
 }

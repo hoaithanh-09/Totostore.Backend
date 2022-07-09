@@ -24,7 +24,6 @@ public class Customer : AuditableEntity, IAggregateRoot
     public string UserId { get; set; }
     public virtual ApplicationUser User { get; set; }
     public virtual Address Address { get; set; } = default!;
-    public virtual List<Notification> Notifications { get; set; } = default!;
     public virtual List<Order> Orders { get; set; } = default!;
 
     public Customer Update(string? name, DateTime? dob, bool? gender, string? mail, string? phoneNumber,
