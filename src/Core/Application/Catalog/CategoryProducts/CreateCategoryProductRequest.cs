@@ -11,7 +11,7 @@ public class CreateCategoryProductRequest : IRequest<Guid>
 public class CreateCategoryProductRequestValidator : CustomValidator<CreateCategoryProductRequest>
 {
     public CreateCategoryProductRequestValidator(IReadRepository<CategoryProduct> categoryProductRepo,
-        IReadRepository<CategoryDetailDto> categoryRepo, IReadRepository<Product> productRepo,
+        IReadRepository<Category> categoryRepo, IReadRepository<Product> productRepo,
         IStringLocalizer<CreateCategoryProductRequestValidator> localizer)
     {
         RuleFor(p => p.CategoryId)

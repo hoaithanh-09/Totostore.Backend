@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Totostore.Backend.Infrastructure.Persistence.Context;
 
@@ -11,9 +12,10 @@ using Totostore.Backend.Infrastructure.Persistence.Context;
 namespace Migrators.MSSQL.Migrations.Application
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220709081738_update-order")]
+    partial class updateorder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -621,6 +623,9 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<Guid?>("CouponId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -657,6 +662,8 @@ namespace Migrators.MSSQL.Migrations.Application
                     b.HasKey("Id");
 
                     b.HasIndex("AddressDeliveryId");
+
+                    b.HasIndex("CouponId");
 
                     b.HasIndex("CustomerId");
 
@@ -1557,6 +1564,10 @@ namespace Migrators.MSSQL.Migrations.Application
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("Totostore.Backend.Domain.Catalog.Coupon", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("CouponId");
+
                     b.HasOne("Totostore.Backend.Domain.Catalog.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
@@ -1749,6 +1760,8 @@ namespace Migrators.MSSQL.Migrations.Application
             modelBuilder.Entity("Totostore.Backend.Domain.Catalog.Coupon", b =>
                 {
                     b.Navigation("OrderCoupons");
+
+                    b.Navigation("Orders");
 
                     b.Navigation("ProductPrices");
                 });

@@ -1,3 +1,4 @@
+using Totostore.Backend.Application.Catalog.Categories;
 using Totostore.Backend.Application.Catalog.CategoryProducts;
 using Totostore.Backend.Application.Catalog.Coupons;
 using Totostore.Backend.Application.Catalog.ProductPrices;
@@ -18,7 +19,7 @@ public class ProductDetailsDto : IDto
     public Guid SupplierId { get; set; }
     public SupplierDetailsDto Supplier { get; set; } = default!;
     public Guid CategoryId { get; set; }
-    public CategoryDetailDto Category { get; set; }
+    public CategoryDto Category { get; set; }
     public Guid PriceId { get; set; }
     public ProductPrice ProductPrice { get; set; }
     public Guid CouponId { get; set; }

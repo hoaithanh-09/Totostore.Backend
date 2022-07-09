@@ -59,9 +59,9 @@ public class CartConfig : IEntityTypeConfiguration<Cart>
 }
 
 // Category
-public class CategoryConfig : IEntityTypeConfiguration<CategoryDetailDto>
+public class CategoryConfig : IEntityTypeConfiguration<Category>
 {
-    public void Configure(EntityTypeBuilder<CategoryDetailDto> builder)
+    public void Configure(EntityTypeBuilder<Category> builder)
     {
         builder.IsMultiTenant();
 

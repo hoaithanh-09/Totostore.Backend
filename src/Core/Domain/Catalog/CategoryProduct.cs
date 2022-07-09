@@ -11,7 +11,7 @@ public class CategoryProduct : AuditableEntity, IAggregateRoot
     public Guid ProductId { get; set; }
     public Guid CategoryId { get; set; }
     public virtual Product Product { get; set; } = default!;
-    public virtual CategoryDetailDto Category { get; set; } = default!;
+    public virtual Category Category { get; set; } = default!;
 
     public CategoryProduct Update(Guid? productId, Guid? categoryId)
     {

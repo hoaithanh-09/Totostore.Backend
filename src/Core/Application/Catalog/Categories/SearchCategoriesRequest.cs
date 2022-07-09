@@ -4,7 +4,7 @@ public class SearchCategoriesRequest : PaginationFilter, IRequest<PaginationResp
 {
 }
 
-public class CategoriesBySearchRequestSpec : EntitiesByPaginationFilterSpec<CategoryDetailDto, CategoryDto>
+public class CategoriesBySearchRequestSpec : EntitiesByPaginationFilterSpec<Category, CategoryDto>
 {
     public CategoriesBySearchRequestSpec(SearchCategoriesRequest request)
         : base(request) =>
@@ -13,9 +13,9 @@ public class CategoriesBySearchRequestSpec : EntitiesByPaginationFilterSpec<Cate
 
 public class SearchCategoriesRequestHandler : IRequestHandler<SearchCategoriesRequest, PaginationResponse<CategoryDto>>
 {
-    private readonly IReadRepository<CategoryDetailDto> _repository;
+    private readonly IReadRepository<Category> _repository;
 
-    public SearchCategoriesRequestHandler(IReadRepository<CategoryDetailDto> repository) => _repository = repository;
+    public SearchCategoriesRequestHandler(IReadRepository<Category> repository) => _repository = repository;
 
     public async Task<PaginationResponse<CategoryDto>> Handle(SearchCategoriesRequest request,
         CancellationToken cancellationToken)
