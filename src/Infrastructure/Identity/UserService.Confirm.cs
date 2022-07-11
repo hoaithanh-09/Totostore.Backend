@@ -1,10 +1,10 @@
 using System.Text;
-using Totostore.Backend.Application.Identity;
-using Totostore.Backend.Infrastructure.Common;
-using Totostore.Backend.Shared.Multitenancy;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Totostore.Backend.Application.Identity;
 using Totostore.Backend.Domain.Identity;
+using Totostore.Backend.Infrastructure.Common;
+using Totostore.Backend.Shared.Multitenancy;
 
 namespace Totostore.Backend.Infrastructure.Identity;
 
@@ -18,18 +18,21 @@ internal partial class UserService
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         const string route = "api/users/confirm-email/";
         var endpointUri = new Uri(string.Concat($"{origin}/", route));
-        string verificationUri = QueryHelpers.AddQueryString(endpointUri.ToString(), QueryStringKeys.UserId, user.Id.ToString());
+        string verificationUri =
+            QueryHelpers.AddQueryString(endpointUri.ToString(), QueryStringKeys.UserId, user.Id.ToString());
         verificationUri = QueryHelpers.AddQueryString(verificationUri, QueryStringKeys.Code, code);
-        verificationUri = QueryHelpers.AddQueryString(verificationUri, MultitenancyConstants.TenantIdName, _currentTenant.Id!);
+        verificationUri =
+            QueryHelpers.AddQueryString(verificationUri, MultitenancyConstants.TenantIdName, _currentTenant.Id!);
         return verificationUri;
     }
 
-    public async Task<string> ConfirmEmailAsync(string userId, string code, string tenant, CancellationToken cancellationToken)
+    public async Task<string> ConfirmEmailAsync(string userId, string code, string tenant,
+        CancellationToken cancellationToken)
     {
         EnsureValidTenant();
 
         var user = await _userManager.Users
-            .Where(u => u.Id.ToString() == userId && !u.EmailConfirmed)
+            .Where(u => u.Id == userId && !u.EmailConfirmed)
             .FirstOrDefaultAsync(cancellationToken);
 
         _ = user ?? throw new InternalServerException(_localizer["An error occurred while confirming E-Mail."]);
@@ -38,8 +41,12 @@ internal partial class UserService
         var result = await _userManager.ConfirmEmailAsync(user, code);
 
         return result.Succeeded
-            ? string.Format(_localizer["Account Confirmed for E-Mail {0}. You can now use the /api/tokens endpoint to generate JWT."], user.Email)
-            : throw new InternalServerException(string.Format(_localizer["An error occurred while confirming {0}"], user.Email));
+            ? string.Format(
+                _localizer[
+                    "Account Confirmed for E-Mail {0}. You can now use the /api/tokens endpoint to generate JWT."],
+                user.Email)
+            : throw new InternalServerException(string.Format(_localizer["An error occurred while confirming {0}"],
+                user.Email));
     }
 
     public async Task<string> ConfirmPhoneNumberAsync(string userId, string code)
@@ -54,8 +61,15 @@ internal partial class UserService
 
         return result.Succeeded
             ? user.EmailConfirmed
-                ? string.Format(_localizer["Account Confirmed for Phone Number {0}. You can now use the /api/tokens endpoint to generate JWT."], user.PhoneNumber)
-                : string.Format(_localizer["Account Confirmed for Phone Number {0}. You should confirm your E-mail before using the /api/tokens endpoint to generate JWT."], user.PhoneNumber)
-            : throw new InternalServerException(string.Format(_localizer["An error occurred while confirming {0}"], user.PhoneNumber));
+                ? string.Format(
+                    _localizer[
+                        "Account Confirmed for Phone Number {0}. You can now use the /api/tokens endpoint to generate JWT."],
+                    user.PhoneNumber)
+                : string.Format(
+                    _localizer[
+                        "Account Confirmed for Phone Number {0}. You should confirm your E-mail before using the /api/tokens endpoint to generate JWT."],
+                    user.PhoneNumber)
+            : throw new InternalServerException(string.Format(_localizer["An error occurred while confirming {0}"],
+                user.PhoneNumber));
     }
 }

@@ -5,14 +5,16 @@
         <AssemblyName>Totostore.Backend.Host</AssemblyName>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
-        <PackageReference Include="Hangfire.Console.Extensions.Serilog" Version="1.0.2" />
+        <PackageReference Include="FluentEmail.Core" Version="3.0.2"/>
+        <PackageReference Include="FluentEmail.Mailgun" Version="3.0.2"/>
+        <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6"/>
+        <PackageReference Include="Hangfire.Console.Extensions.Serilog" Version="1.0.2"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
-        <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="5.0.0"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Core\Application\Application.csproj" />
@@ -29,15 +31,23 @@
         <None Include="Email Templates\*.html">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <Content Remove="Email Templates\email-confirmation.cshtml"/>
     </ItemGroup>
     <ItemGroup>
-        <Content Remove="Logs\*" />
-        <None Include="Logs\*" />
+        <Content Remove="Logs\*"/>
+        <None Include="Logs\*"/>
     </ItemGroup>
     <ItemGroup>
         <None Include="Email Templates\*.cshtml">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
-    <ProjectExtensions><VisualStudio><UserProperties configurations_4database_1json__JsonSchema="https://docs.gradle.com/enterprise/admin/schema/gradle-enterprise-config-schema-4.json" /></VisualStudio></ProjectExtensions>
+    <ItemGroup>
+        <Folder Include="Email Templates"/>
+    </ItemGroup>
+    <ProjectExtensions>
+        <VisualStudio>
+            <UserProperties configurations_4database_1json__JsonSchema="https://docs.gradle.com/enterprise/admin/schema/gradle-enterprise-config-schema-4.json"/>
+        </VisualStudio>
+    </ProjectExtensions>
 </Project>

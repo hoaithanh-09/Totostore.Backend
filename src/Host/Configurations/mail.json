@@ -1,10 +1,8 @@
 {
   "MailSettings": {
-    "DisplayName": "Mukesh Murugan",
-    "From": "mukesh@fullstackhero.net",
-    "Host": "smtp.ethereal.email",
-    "Password": "vAKmWQB8CyPUBg8rBQ",
-    "Port": 587,
-    "UserName": "adaline.pfannerstill49@ethereal.email"
+    "DisplayName": "Totostore Support",
+    "From": "support@totostore.tech",
+    "Domain": "mail.totostore.tech",
+    "ApiKey": "6973627e4cb3de938924a00f09b323e1-1b8ced53-4cfed63a"
   }
 }

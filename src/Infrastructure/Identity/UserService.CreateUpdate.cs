@@ -1,14 +1,14 @@
-﻿using Totostore.Backend.Application.Common.Exceptions;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
+using Totostore.Backend.Application.Common.Exceptions;
 using Totostore.Backend.Application.Common.Mailing;
 using Totostore.Backend.Application.Identity;
 using Totostore.Backend.Application.Identity.Users;
 using Totostore.Backend.Domain.Common;
 using Totostore.Backend.Domain.Identity;
 using Totostore.Backend.Shared.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web;
-using System.Security.Claims;
 
 namespace Totostore.Backend.Infrastructure.Identity;
 
@@ -30,7 +30,7 @@ internal partial class UserService
         }
 
         var user = await _userManager.Users.Where(u => u.ObjectId == objectId).FirstOrDefaultAsync()
-            ?? await CreateOrUpdateFromPrincipalAsync(principal);
+                   ?? await CreateOrUpdateFromPrincipalAsync(principal);
 
         if (principal.FindFirstValue(ClaimTypes.Role) is string role &&
             await _roleManager.RoleExistsAsync(role) &&
@@ -122,20 +122,20 @@ internal partial class UserService
 
         await _userManager.AddToRoleAsync(user, FSHRoles.Basic);
 
-        var messages = new List<string> { string.Format(_localizer["User {0} Registered."], user.UserName) };
+        var messages = new List<string> {string.Format(_localizer["User {0} Registered."], user.UserName)};
 
         if (_securitySettings.RequireConfirmedAccount && !string.IsNullOrEmpty(user.Email))
         {
             // send verification email
             string emailVerificationUri = await GetEmailVerificationUriAsync(user, origin);
-            RegisterUserEmailModel eMailModel = new RegisterUserEmailModel()
+            var eMailModel = new RegisterUserEmailModel
             {
                 Email = user.Email,
                 UserName = user.UserName,
                 Url = emailVerificationUri
             };
             var mailRequest = new MailRequest(
-                new List<string> { user.Email },
+                new List<string> {user.Email},
                 _localizer["Confirm Registration"],
                 _templateService.GenerateEmailTemplate("email-confirmation", eMailModel));
             _jobService.Enqueue(() => _mailService.SendAsync(mailRequest));
