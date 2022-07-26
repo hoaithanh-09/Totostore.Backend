@@ -5,7 +5,9 @@ namespace Totostore.Backend.Host.Controllers.Catalog;
 public class ProductDetailsController : VersionedApiController
 {
     [HttpGet("{id:guid}")]
-    [MustHavePermission(FSHAction.View, FSHResource.ProductDetails)]
+    [AllowAnonymous]
+    [TenantIdHeader]
+   // [MustHavePermission(FSHAction.View, FSHResource.ProductDetails)]
     [OpenApiOperation("Get productDetail details.", "")]
     public Task<ProductDetailDetailsDto> GetAsync(Guid id)
     {

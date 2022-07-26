@@ -27,7 +27,9 @@ public class ProductsController : VersionedApiController
     //}
 
     [HttpGet("{id:guid}")]
-    [MustHavePermission(FSHAction.View, FSHResource.Products)]
+    [AllowAnonymous]
+    [TenantIdHeader]
+   // [MustHavePermission(FSHAction.View, FSHResource.Products)]
     [OpenApiOperation("Get product details.", "")]
     public Task<ProductDetailsDto> GetAsync(Guid id)
     {
@@ -60,8 +62,7 @@ public class ProductsController : VersionedApiController
             : Ok(await Mediator.Send(request));
     }
 
-    [AllowAnonymous]
-    [TenantIdHeader]
+    
     [HttpDelete("{id:guid}")]
     [MustHavePermission(FSHAction.Delete, FSHResource.Products)]
     [OpenApiOperation("Delete a product.", "")]

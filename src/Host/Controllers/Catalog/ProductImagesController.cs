@@ -5,7 +5,9 @@ namespace Totostore.Backend.Host.Controllers.Catalog;
 public class ProductImagesController:VersionedApiController
 {
     [HttpGet("{id:guid}")]
-    [MustHavePermission(FSHAction.View, FSHResource.ProductImages)]
+    [AllowAnonymous]
+    [TenantIdHeader]
+  //  [MustHavePermission(FSHAction.View, FSHResource.ProductImages)]
     [OpenApiOperation("Get productImages details.", "")]
     public Task<ProductImageDetailsDto> GetAsync(Guid id)
     {
@@ -29,7 +31,9 @@ public class ProductImagesController:VersionedApiController
         return Mediator.Send(new DeleteProductImageRequest(id));
     }
     [HttpPost("search")]
-    [MustHavePermission(FSHAction.Search, FSHResource.ProductImages)]
+    [AllowAnonymous]
+    [TenantIdHeader]
+  //  [MustHavePermission(FSHAction.Search, FSHResource.ProductImages)]
     [OpenApiOperation("Search productImages using available filters.", "")]
     public Task<PaginationResponse<ProductImageDto>> SearchAsync(SearchProductImagesRequest request)
     {

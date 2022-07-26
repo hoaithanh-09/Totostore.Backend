@@ -15,7 +15,9 @@ public class CategoriesController : VersionedApiController
     }
 
     [HttpGet("{id:guid}")]
-   // [MustHavePermission(FSHAction.View, FSHResource.Categories)]
+    [AllowAnonymous]
+    [TenantIdHeader]
+    // [MustHavePermission(FSHAction.View, FSHResource.Categories)]
     [OpenApiOperation("Get category details.", "")]
     public Task<CategoryDto> GetAsync(Guid id)
     {
@@ -40,10 +42,8 @@ public class CategoriesController : VersionedApiController
             : Ok(await Mediator.Send(request));
     }
 
-    [HttpDelete("{id:guid}")]
-    [AllowAnonymous]
-    [TenantIdHeader]
-    //  [MustHavePermission(FSHAction.Delete, FSHResource.Categories)]
+    [HttpDelete("{id:guid}")]  
+    [MustHavePermission(FSHAction.Delete, FSHResource.Categories)]
     [OpenApiOperation("Delete a category.", "")]
     public Task<Guid> DeleteAsync(Guid id)
     {

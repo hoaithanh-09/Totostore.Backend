@@ -5,7 +5,9 @@ namespace Totostore.Backend.Host.Controllers.Catalog;
 public class CouponsController : VersionedApiController
 {
     [HttpPost("search")]
-    [MustHavePermission(FSHAction.Search, FSHResource.Coupons)]
+    [AllowAnonymous]
+    [TenantIdHeader]
+  //  [MustHavePermission(FSHAction.Search, FSHResource.Coupons)]
     [OpenApiOperation("Search coupons using available filters.", "")]
     public Task<PaginationResponse<CouponDto>> SearchAsync(SearchCouponsRequest request)
     {
@@ -13,7 +15,9 @@ public class CouponsController : VersionedApiController
     }
 
     [HttpGet("{id:guid}")]
-    [MustHavePermission(FSHAction.View, FSHResource.Coupons)]
+    [AllowAnonymous]
+    [TenantIdHeader]
+    //[MustHavePermission(FSHAction.View, FSHResource.Coupons)]
     [OpenApiOperation("Get coupon details.", "")]
     public Task<CouponDto> GetAsync(Guid id)
     {
