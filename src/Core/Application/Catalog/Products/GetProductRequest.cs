@@ -19,7 +19,9 @@ public class GetProductRequestHandler : IRequestHandler<GetProductRequest, Produ
 
     public async Task<ProductDetailsDto> Handle(GetProductRequest request, CancellationToken cancellationToken)
     {
-        return await _repository.GetBySpecAsync((ISpecification<Product, ProductDetailsDto>)new ProductByIdWithSupplierSpec(request.Id), cancellationToken)
+        var data = await _repository.GetByIdAsync(request.Id);
+        var model = await _repository.GetBySpecAsync((ISpecification<Product, ProductDetailsDto>)new ProductByIdWSpec(request.Id), cancellationToken)
        ?? throw new NotFoundException(string.Format(_localizer["product.notfound"], request.Id));
+        return model;
     }
 }

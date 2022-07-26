@@ -19,10 +19,10 @@ public class ProductDetailsDto : IDto
     public Guid SupplierId { get; set; }
     public SupplierDetailsDto Supplier { get; set; } = default!;
     public Guid CategoryId { get; set; }
-    public CategoryDto Category { get; set; }
+    public Category Category { get; set; }
     public Guid PriceId { get; set; }
     public ProductPrice ProductPrice { get; set; }
-    public Guid CouponId { get; set; }
+    public Guid? CouponId { get; set; }
     public Coupon Coupon { get; set; }
 
 

@@ -1,13 +1,10 @@
 ﻿namespace Totostore.Backend.Application.Catalog.Products;
 
-public class ProductByIdWithSupplierSpec : Specification<Product, ProductDetailsDto>, ISingleResultSpecification
+public class ProductByIdWSpec : Specification<Product, ProductDetailsDto>, ISingleResultSpecification
 {
-    public ProductByIdWithSupplierSpec(Guid id)
+    public ProductByIdWSpec(Guid id)
     {
         Query
-            .Where(p => p.Id == id)
-            .Include(p => p.Supplier);
+            .Where(p => p.Id == id);
     }
-
-        
 }

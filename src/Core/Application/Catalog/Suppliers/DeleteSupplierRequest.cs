@@ -20,7 +20,7 @@ public class DeleteSupplierRequestHandler : IRequestHandler<DeleteSupplierReques
 
     public async Task<Guid> Handle(DeleteSupplierRequest request, CancellationToken cancellationToken)
     {
-        if (await _productRepo.AnyAsync(new ProductsBySupplierSpec(request.Id), cancellationToken))
+        if (await _productRepo.AnyAsync(new ProductByIdWSpec(request.Id), cancellationToken))
         {
             throw new ConflictException(_localizer["supplier.cannotbedeleted"]);
         }

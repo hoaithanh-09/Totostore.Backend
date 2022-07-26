@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Serilog;
+using Totostore.Backend.Application.Catalog.Products;
+using Totostore.Backend.Infrastructure.Catalog;
 
 namespace Totostore.Backend.Infrastructure.Persistence;
 
@@ -45,7 +47,7 @@ internal static class Startup
             .AddTransient<ApplicationDbSeeder>()
             .AddServices(typeof(ICustomSeeder), ServiceLifetime.Transient)
             .AddTransient<CustomSeederRunner>()
-
+            .AddSingleton<IProductService, ProductService>()
             .AddTransient<IConnectionStringSecurer, ConnectionStringSecurer>()
             .AddTransient<IConnectionStringValidator, ConnectionStringValidator>()
 

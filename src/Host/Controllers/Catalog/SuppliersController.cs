@@ -5,7 +5,9 @@ namespace Totostore.Backend.Host.Controllers.Catalog;
 public class SuppliersController:VersionedApiController
 {
     [HttpPost("search")]
-    [MustHavePermission(FSHAction.Search, FSHResource.Suppliers)]
+    [AllowAnonymous]
+    [TenantIdHeader]
+   // [MustHavePermission(FSHAction.Search, FSHResource.Suppliers)]
     [OpenApiOperation("Search suppliers using available filters.", "")]
     public Task<PaginationResponse<SupplierDto>> SearchAsync(SearchSuppliersRequest request)
     {
@@ -13,7 +15,9 @@ public class SuppliersController:VersionedApiController
     }
 
     [HttpGet("{id:guid}")]
-    [MustHavePermission(FSHAction.View, FSHResource.Suppliers)]
+    [AllowAnonymous]
+    [TenantIdHeader]
+   // [MustHavePermission(FSHAction.View, FSHResource.Suppliers)]
     [OpenApiOperation("Get supplier details.", "")]
     public Task<SupplierDetailsDto> GetAsync(Guid id)
     {

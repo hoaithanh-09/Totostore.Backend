@@ -5,13 +5,26 @@ namespace Totostore.Backend.Host.Controllers.Catalog;
 
 public class ProductsController : VersionedApiController
 {
+    //private readonly IProductService _productService;
+    //public ProductsController(IProductService productService) => _productService = productService;
+
     [HttpPost("search")]
-    [MustHavePermission(FSHAction.Search, FSHResource.Products)]
+    [AllowAnonymous]
+    [TenantIdHeader]
+    //[MustHavePermission(FSHAction.Search, FSHResource.Products)]
     [OpenApiOperation("Search products using available filters.", "")]
     public Task<PaginationResponse<ProductDetailsDto>> SearchAsync(SearchProductsRequest request)
     {
         return Mediator.Send(request);
     }
+
+    //[HttpPost("Search-list")]
+    //[MustHavePermission(FSHAction.Search, FSHResource.Products)]
+    //[OpenApiOperation("Get list of all users.", "")]
+    //public Task<PaginationResponse<ProductDetailsDto>> SearchAsync(SearchProductsRequest request, CancellationToken cancellationToken)
+    //{
+    //    return _productService.SearchAsync(request,cancellationToken);
+    //}
 
     [HttpGet("{id:guid}")]
     [MustHavePermission(FSHAction.View, FSHResource.Products)]
@@ -47,6 +60,8 @@ public class ProductsController : VersionedApiController
             : Ok(await Mediator.Send(request));
     }
 
+    [AllowAnonymous]
+    [TenantIdHeader]
     [HttpDelete("{id:guid}")]
     [MustHavePermission(FSHAction.Delete, FSHResource.Products)]
     [OpenApiOperation("Delete a product.", "")]

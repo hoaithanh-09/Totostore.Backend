@@ -5,31 +5,27 @@
         <AssemblyName>Totostore.Backend.Infrastructure</AssemblyName>
     </PropertyGroup>
     <ItemGroup>
-      <Compile Remove="Catalog\**" />
-      <EmbeddedResource Remove="Catalog\**" />
-      <None Remove="Catalog\**" />
-    </ItemGroup>
-    <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="6.0.1"/>
-        <PackageReference Include="ClosedXML" Version="0.95.4"/>
-        <PackageReference Include="Dapper" Version="2.0.123"/>
-        <PackageReference Include="Finbuckle.MultiTenant.AspNetCore" Version="6.6.1"/>
-        <PackageReference Include="Finbuckle.MultiTenant.EntityFrameworkCore" Version="6.6.1"/>
-        <PackageReference Include="FluentEmail.Core" Version="3.0.2"/>
-        <PackageReference Include="FluentEmail.Mailgun" Version="3.0.2"/>
-        <PackageReference Include="Hangfire" Version="1.7.28"/>
-        <PackageReference Include="Hangfire.Console" Version="1.4.2"/>
-        <PackageReference Include="Hangfire.Console.Extensions" Version="1.0.5"/>
-        <PackageReference Include="Hangfire.MySqlStorage" Version="2.0.3"/>
-        <PackageReference Include="Hangfire.PostgreSql" Version="1.9.6"/>
-        <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" Version="5.0.0"/>
-        <PackageReference Include="MailKit" Version="3.1.1"/>
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2"/>
-        <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.2"/>
-        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0"/>
+        <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="6.0.1" />
+        <PackageReference Include="AutoMapper" Version="11.0.1" />
+        <PackageReference Include="ClosedXML" Version="0.95.4" />
+        <PackageReference Include="Dapper" Version="2.0.123" />
+        <PackageReference Include="Finbuckle.MultiTenant.AspNetCore" Version="6.6.1" />
+        <PackageReference Include="Finbuckle.MultiTenant.EntityFrameworkCore" Version="6.6.1" />
+        <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
+        <PackageReference Include="FluentEmail.Mailgun" Version="3.0.2" />
+        <PackageReference Include="Hangfire" Version="1.7.28" />
+        <PackageReference Include="Hangfire.Console" Version="1.4.2" />
+        <PackageReference Include="Hangfire.Console.Extensions" Version="1.0.5" />
+        <PackageReference Include="Hangfire.MySqlStorage" Version="2.0.3" />
+        <PackageReference Include="Hangfire.PostgreSql" Version="1.9.6" />
+        <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" Version="5.0.0" />
+        <PackageReference Include="MailKit" Version="3.1.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />

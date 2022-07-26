@@ -1,4 +1,5 @@
-﻿using Mapster;
+﻿using AutoMapper;
+using Mapster;
 using Totostore.Backend.Application.Catalog.ProductPrices;
 using Totostore.Backend.Application.Catalog.Products;
 using Totostore.Backend.Domain.Catalog;
@@ -9,7 +10,8 @@ public class MapsterSettings
 {
     public static void Configure()
     {
-        TypeAdapterConfig<Product, ProductViewModel>.NewConfig();
+        TypeAdapterConfig<Product, ProductDetailsDto>.NewConfig();
+        TypeAdapterConfig<Product, ProductDto>.NewConfig();
         TypeAdapterConfig<ProductPrice, CreateProductPriceRequest>.NewConfig();
         TypeAdapterConfig<CreateProductPriceRequest, ProductPrice>.NewConfig();
 
@@ -19,4 +21,5 @@ public class MapsterSettings
         // This one is actually not necessary as it's mapped by convention
         // TypeAdapterConfig<Product, ProductDto>.NewConfig().Map(dest => dest.BrandName, src => src.Brand.Name);
     }
+
 }
