@@ -1,4 +1,5 @@
 using Totostore.Backend.Domain.Common.Events;
+using Totostore.Backend.Shared.Enums;
 
 namespace Totostore.Backend.Application.Catalog.Notifications;
 
@@ -7,7 +8,7 @@ public class CreateNotificationRequest : IRequest<Guid>
     public string Title { get; set; } = default!;
     public string Content { get; set; } = default!;
     public string UserId { get; set; }
-
+    public NotificationType Type { get; set; }
 }
 
 public class CreateNotificationRequestValidator : CustomValidator<CreateNotificationRequest>
@@ -28,7 +29,7 @@ public class CreateNotificationRequestHandler : IRequestHandler<CreateNotificati
 
     public async Task<Guid> Handle(CreateNotificationRequest request, CancellationToken cancellationToken)
     {
-        var notification = new Notification(request.Title, request.Content, request.UserId);
+        var notification = new Notification(request.Title, request.Content, request.UserId, request.Type);
 
         // Add Domain Events to be raised after the commit
         notification.DomainEvents.Add(EntityCreatedEvent.WithEntity(notification));

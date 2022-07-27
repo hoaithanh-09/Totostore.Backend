@@ -6,7 +6,7 @@ namespace Totostore.Backend.Application.Catalog.ProductImages;
 public class CreateProductImageRequest : IRequest<Guid>
 {
     public Guid ProductId { get; set; }
-    public string ImagePath { get; set; } = default!;
+    public string[] ImagePath { get; set; } = default!;
     public long? FileSize { get; set; }
     public ProductImageType Type { get; set; }
     public string? Description { get; set; }

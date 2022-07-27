@@ -1,19 +1,23 @@
 ﻿using AutoMapper;
 using Mapster;
+using Microsoft.Extensions.DependencyInjection;
+using Totostore.Backend.Application.Catalog.Notifications;
 using Totostore.Backend.Application.Catalog.ProductPrices;
 using Totostore.Backend.Application.Catalog.Products;
 using Totostore.Backend.Domain.Catalog;
 
 namespace Totostore.Backend.Infrastructure.Mapping;
 
-public class MapsterSettings
+public class MapsterSettings : Profile
 {
-    public static void Configure()
+    public MapsterSettings()
     {
         TypeAdapterConfig<Product, ProductDetailsDto>.NewConfig();
         TypeAdapterConfig<Product, ProductDto>.NewConfig();
         TypeAdapterConfig<ProductPrice, CreateProductPriceRequest>.NewConfig();
         TypeAdapterConfig<CreateProductPriceRequest, ProductPrice>.NewConfig();
+
+        TypeAdapterConfig<InsertNotificationRequest, Notification>.NewConfig();
 
         // here we will define the type conversion / Custom-mapping
         // More details at https://github.com/MapsterMapper/Mapster/wiki/Custom-mapping

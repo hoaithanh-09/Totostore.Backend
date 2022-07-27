@@ -7,7 +7,7 @@ public class ProductImageDetailsDto : IDto
 {
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }
-    public string ImagePath { get; set; } = default!;
+    public string[] ImagePath { get; set; } = default!;
     public long? FileSize { get; set; }
     public ProductImageType Type { get; set; }
     public string? Description { get; set; }

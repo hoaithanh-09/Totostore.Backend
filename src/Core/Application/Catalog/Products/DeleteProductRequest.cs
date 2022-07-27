@@ -1,4 +1,5 @@
 ﻿using Totostore.Backend.Domain.Common.Events;
+using Z.EntityFramework.Plus;
 
 namespace Totostore.Backend.Application.Catalog.Products;
 
@@ -27,7 +28,6 @@ public class DeleteProductRequestHandler : IRequestHandler<DeleteProductRequest,
         product.DomainEvents.Add(EntityDeletedEvent.WithEntity(product));
 
         await _repository.DeleteAsync(product, cancellationToken);
-
         return request.Id;
     }
 }

@@ -5,14 +5,15 @@
         <AssemblyName>Totostore.Backend.Application</AssemblyName>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Ardalis.Specification" Version="6.0.1"/>
-        <PackageReference Include="FluentEmail.Core" Version="3.0.2"/>
-        <PackageReference Include="FluentEmail.Mailgun" Version="3.0.2"/>
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.6"/>
-        <PackageReference Include="Mapster" Version="7.3.0"/>
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1"/>
-        <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.2"/>
+        <PackageReference Include="Ardalis.Specification" Version="6.0.1" />
+        <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
+        <PackageReference Include="FluentEmail.Mailgun" Version="3.0.2" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.6" />
+        <PackageReference Include="Mapster" Version="7.3.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.2" />
+        <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="6.14.3" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Domain\Domain.csproj" />

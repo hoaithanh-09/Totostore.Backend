@@ -199,11 +199,16 @@ public class ProductImageConfig : IEntityTypeConfiguration<ProductImage>
     public void Configure(EntityTypeBuilder<ProductImage> builder)
     {
         builder.IsMultiTenant();
+        builder.Property(x => x.ImagePath).HasConversion(
+                   x => string.Join(',', x),
+                   x => x.Split(',', System.StringSplitOptions.RemoveEmptyEntries)
+               );
         builder
             .HasOne(x => x.Product)
             .WithMany(x => x.ProductImages)
             .HasForeignKey(x => x.ProductId)
             .OnDelete(DeleteBehavior.Cascade);
+
     }
 }
 
@@ -327,7 +332,7 @@ public class OrderProductConfig : IEntityTypeConfiguration<OrderProduct>
             .WithMany(x => x.OrderProducts)
             .HasForeignKey(x => x.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
-      
+
     }
 }
 

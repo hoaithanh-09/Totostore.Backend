@@ -28,7 +28,7 @@ public static class Startup
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
     {
-        MapsterSettings.Configure();
+      //  MapsterSettings.Configure();
         return services
             .AddApiVersioning()
             .AddAuth(config)
@@ -46,7 +46,8 @@ public static class Startup
             .AddPersistence(config)
             .AddRequestLogging(config)
             .AddRouting(options => options.LowercaseUrls = true)
-            .AddServices();
+            .AddServices()
+            .AddAutoMapper(c=>c.AddProfile<MapsterSettings>(), typeof(Startup));
     }
 
     private static IServiceCollection AddApiVersioning(this IServiceCollection services) =>

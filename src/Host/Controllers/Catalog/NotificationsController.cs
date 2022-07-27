@@ -4,12 +4,23 @@ namespace Totostore.Backend.Host.Controllers.Catalog;
 
 public class NotificationsController : VersionedApiController
 {
+    private readonly INotificationService _notificationService;
+    public NotificationsController(INotificationService notificationService) => _notificationService = notificationService;
+
     [HttpPost("search")]
     [MustHavePermission(FSHAction.Search, FSHResource.Notifications)]
     [OpenApiOperation("Search notifications using available filters.", "")]
     public Task<PaginationResponse<NotificationDto>> SearchAsync(SearchNotificationsRequest request)
     {
         return Mediator.Send(request);
+    }
+
+    [HttpPost("InsertForCustomer")]
+    [MustHavePermission(FSHAction.Create, FSHResource.Notifications)]
+    [OpenApiOperation("Create a new notification.", "")]
+    public Task CreateAsync(CreateGeneralNotificationForIdsRequest request)
+    {
+        return _notificationService.CreateNotificationForCustomers(request);
     }
 
     [HttpGet("{id:guid}")]
