@@ -20,8 +20,8 @@ public class Coupon : AuditableEntity, IAggregateRoot
     public DateTime TimeBegin { get; set; }
     public DateTime TimeEnd { get; set; }
     public int Quantity { get; set; }
-    public virtual List<OrderCoupon> OrderCoupons { get; set; } = default!;
-    public List<ProductPrice>? ProductPrices { get; set; }
+    public virtual List<OrderCoupon> OrderCoupons { get; set; } = new();
+    public virtual List<ProductPrice>? ProductPrices { get; set; } = new();
 
     public Coupon Update(string? name, CouponStatus? type, decimal? amount, DateTime? timeBegin, DateTime? timeEnd,
         int? quantity)

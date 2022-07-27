@@ -44,7 +44,7 @@ public class Detail : AuditableEntity, IAggregateRoot
     public string? Color { get; set; }
     public string? Series { get; set; }
     public string? DisplayResolutionMaximum { get; set; }
-    public virtual List<ProductDetail> ProductDetails { get; set; } = default!;
+    public virtual List<ProductDetail> ProductDetails { get; set; } = new();
 
     public Detail Update(string? description, string? screenSize, string? itemWeight,
         string? computerMemoryType, string? productDimensions, string? processorBrand,

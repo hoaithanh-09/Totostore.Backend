@@ -10,6 +10,7 @@ public interface INotificationService : ITransientService
 {
     //Task SendNotification(Guid userId, string message, NotificationType type);
     //Task SendNotificationToAllCustomer(int departmentId, string message, NotificationType type);
-    public Task CreateNotificationForCustomers(CreateGeneralNotificationForIdsRequest request);
-    public Task CreateNotificationForAllCustomer(InsertNotificationRequest request);
+    public Task<bool> CreateNotificationForCustomers(CreateGeneralNotificationForIdsRequest request);
+    public Task<bool> CreateNotificationForAllCustomer(InsertNotificationRequest request);
+    public Task<PaginationResponse<NotificationDetailsDto>> SearchAsync(SearchNotificationsRequest request, CancellationToken cancellationToken);
 }

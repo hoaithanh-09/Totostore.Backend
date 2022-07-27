@@ -13,6 +13,7 @@ public class MapsterSettings : Profile
     public MapsterSettings()
     {
         TypeAdapterConfig<Product, ProductDetailsDto>.NewConfig();
+        TypeAdapterConfig<ProductDetailsDto,Product>.NewConfig();
         TypeAdapterConfig<Product, ProductDto>.NewConfig();
         TypeAdapterConfig<ProductPrice, CreateProductPriceRequest>.NewConfig();
         TypeAdapterConfig<CreateProductPriceRequest, ProductPrice>.NewConfig();

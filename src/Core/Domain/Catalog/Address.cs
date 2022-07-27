@@ -19,10 +19,10 @@ public class Address : AuditableEntity, IAggregateRoot
     public string WardCode { get;set; }
     public string Ward { get; set; }
     public string StayingAddress { get; set; }
-    public virtual List<Shipper> Shippers { get; set; } = default!;
-    public virtual List<Customer> Customers { get; set; } = default!;
-    public virtual List<Order> Orders { get; set; } = default!;
-    public virtual List<Supplier> Suppliers { get; set; } = default!;
+    public virtual List<Shipper> Shippers { get; set; } = new();
+    public virtual List<Customer> Customers { get; set; } = new();
+    public virtual List<Order> Orders { get; set; } = new();
+    public virtual List<Supplier> Suppliers { get; set; } = new();
 
     public Address Update(string? cityCode,string? city, string districtCode, string? district, string? wardCode, string? ward, string? stayingAddress)
     {

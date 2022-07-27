@@ -17,8 +17,8 @@ public class Cart : AuditableEntity, IAggregateRoot
     public int Quantity { get; set; }
     public decimal Price { get; set; }
 
-    public virtual ApplicationUser User { get; set; } = default!;
-    public virtual Product Product { get; set; } = default!;
+    public virtual ApplicationUser User { get; set; } 
+    public virtual Product Product { get; set; }
 
     public Cart Update(Guid? productId, string? userId, int? quantity, decimal? price)
     {

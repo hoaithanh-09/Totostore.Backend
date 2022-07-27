@@ -8,7 +8,7 @@ public class Payment : AuditableEntity, IAggregateRoot
     }
 
     public string Name { get; set; } = default!;
-    public virtual List<OrderPayment> OrderPayments { get; set; } = default!;
+    public virtual List<OrderPayment> OrderPayments { get; set; } = new();
 
     public Payment Update(string? name)
     {

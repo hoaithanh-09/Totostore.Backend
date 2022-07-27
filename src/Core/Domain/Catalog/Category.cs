@@ -20,7 +20,7 @@ public class Category : AuditableEntity, IAggregateRoot
     public string? Description { get; set; }
     public Guid? ParentId { get; set; }
     public bool IsShowed { get; set; }
-    public virtual List<CategoryProduct> CategoryProducts { get; set; } = default!;
+    public virtual List<CategoryProduct> CategoryProducts { get; set; } = new();
 
     public Category Update(string? name, string? slug, int? level, int? order, string? description, Guid? parentId,
         bool? isShowed)

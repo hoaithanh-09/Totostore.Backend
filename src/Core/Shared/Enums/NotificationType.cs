@@ -7,4 +7,7 @@ using System.Threading.Tasks;
 namespace Totostore.Backend.Shared.Enums;
 public enum NotificationType
 {
+
+    Coupon,  //0 - giam gia
+    OrderStatus, // 1- trang thai don hang
 }

@@ -10,7 +10,7 @@ public class Supplier : AuditableEntity, IAggregateRoot
 
     public string Name { get; set; } = default!;
     public string? Description { get; set; }
-    public virtual List<Product> Products { get; set; } = default!;
+    public virtual List<Product> Products { get; set; } = new();
 
     public Supplier Update(string? name, string? description)
     {

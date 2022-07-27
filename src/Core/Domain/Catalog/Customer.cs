@@ -22,9 +22,9 @@ public class Customer : AuditableEntity, IAggregateRoot
     public string PhoneNumber { get; set; } = default!;
     public Guid AddressId { get; set; }
     public string UserId { get; set; }
-    public virtual ApplicationUser User { get; set; }
+    public virtual ApplicationUser User { get; set; } 
     public virtual Address Address { get; set; } = default!;
-    public virtual List<Order> Orders { get; set; } = default!;
+    public virtual List<Order> Orders { get; set; } = new();
 
     public Customer Update(string? name, DateTime? dob, bool? gender, string? mail, string? phoneNumber,
         Guid? addressId, string? userId)

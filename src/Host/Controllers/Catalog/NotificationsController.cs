@@ -7,12 +7,12 @@ public class NotificationsController : VersionedApiController
     private readonly INotificationService _notificationService;
     public NotificationsController(INotificationService notificationService) => _notificationService = notificationService;
 
-    [HttpPost("search")]
+    [HttpPost("search-List")]
     [MustHavePermission(FSHAction.Search, FSHResource.Notifications)]
     [OpenApiOperation("Search notifications using available filters.", "")]
-    public Task<PaginationResponse<NotificationDto>> SearchAsync(SearchNotificationsRequest request)
+    public Task<PaginationResponse<NotificationDetailsDto>> SearchNotificationAsync(SearchNotificationsRequest request, CancellationToken cancellationToken)
     {
-        return Mediator.Send(request);
+        return _notificationService.SearchAsync(request, cancellationToken);
     }
 
     [HttpPost("InsertForCustomer")]
@@ -21,6 +21,14 @@ public class NotificationsController : VersionedApiController
     public Task CreateAsync(CreateGeneralNotificationForIdsRequest request)
     {
         return _notificationService.CreateNotificationForCustomers(request);
+    }
+
+    [HttpPost("InsertForAllCustomer")]
+    [MustHavePermission(FSHAction.Create, FSHResource.Notifications)]
+    [OpenApiOperation("Create a new notification.", "")]
+    public Task CreateNotificationAsync(InsertNotificationRequest request)
+    {
+        return _notificationService.CreateNotificationForAllCustomer(request);
     }
 
     [HttpGet("{id:guid}")]

@@ -24,13 +24,13 @@ public class Product : AuditableEntity, IAggregateRoot
     public Status Status { get; set; }
     public Guid SupplierId { get; set; }
     public virtual Supplier Supplier { get; private set; } = default!;
-    public virtual List<ProductDetail> ProductDetails { get; set; } = default!;
-    public virtual List<ProductImage> ProductImages { get; set; } = default!;
-    public virtual List<ProductPrice> ProductPrices { get; set; } = default!;
-    public virtual List<CategoryProduct> CategoryProducts { get; set; } = default!;
+    public virtual List<ProductDetail> ProductDetails { get; set; } = new();
+    public virtual List<ProductImage> ProductImages { get; set; } = new();
+    public virtual List<ProductPrice> ProductPrices { get; set; } = new();
+    public virtual List<CategoryProduct> CategoryProducts { get; set; } = new();
 
     public virtual List<Cart> Carts { get; set; } = default!;
-    public virtual List<OrderProduct> OrderProducts { get; set; } = default!;
+    public virtual List<OrderProduct> OrderProducts { get; set; } = new();
 
     public Product Update(string? name, string? slug, string? description, decimal? rate, int? quantity, Status? status,
         Guid? supplierId)

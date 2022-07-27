@@ -19,10 +19,10 @@ public class Order : AuditableEntity, IAggregateRoot
     public virtual Customer Customer { get; private set; } = default!;
     public virtual Shipper Shipper { get; private set; } = default!;
     public virtual Address AddressDelivery { get; private set; } = default!;
-    public virtual List<OrderCoupon> OrderCoupons { get; set; } = default!;
-    public virtual List<OrderPayment> OrderPayments { get; set; } = default!;
-    public virtual List<OrderProduct> OrderProducts { get; set; } = default!;
-    public virtual List<OrderStatus> OrderStatuses { get; set; } = default!;
+    public virtual List<OrderCoupon> OrderCoupons { get; set; } = new();
+    public virtual List<OrderPayment> OrderPayments { get; set; } = new();
+    public virtual List<OrderProduct> OrderProducts { get; set; } = new();
+    public virtual List<OrderStatus> OrderStatuses { get; set; } = new();
 
     public Order Update(decimal? amount, string? note, Guid? customerId, Guid? shipperId, Guid? addressDeliveryId)
     {
