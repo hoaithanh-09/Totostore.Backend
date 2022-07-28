@@ -2,10 +2,12 @@ using Totostore.Backend.Application.Catalog.Carts;
 
 namespace Totostore.Backend.Host.Controllers.Catalog;
 
+[Authorize]
 public class CartsController : VersionedApiController
 {
     [HttpPost("search")]
-    [MustHavePermission(FSHAction.Search, FSHResource.Carts)]
+  
+    //[MustHavePermission(FSHAction.Search, FSHResource.Carts)]
     [OpenApiOperation("Search carts using available filters.", "")]
     public Task<PaginationResponse<CartDto>> SearchAsync(SearchCartsRequest request)
     {
@@ -13,7 +15,8 @@ public class CartsController : VersionedApiController
     }
 
     [HttpGet("{id:guid}")]
-    [MustHavePermission(FSHAction.View, FSHResource.Carts)]
+
+   // [MustHavePermission(FSHAction.View, FSHResource.Carts)]
     [OpenApiOperation("Get cart details.", "")]
     public Task<CartDetailsDto> GetAsync(Guid id)
     {
@@ -21,7 +24,7 @@ public class CartsController : VersionedApiController
     }
 
     [HttpPost]
-    [MustHavePermission(FSHAction.Create, FSHResource.Carts)]
+    //[MustHavePermission(FSHAction.Create, FSHResource.Carts)]
     [OpenApiOperation("Create a new cart.", "")]
     public Task<Guid> CreateAsync(CreateCartRequest request)
     {
@@ -29,7 +32,7 @@ public class CartsController : VersionedApiController
     }
 
     [HttpPut("{id:guid}")]
-    [MustHavePermission(FSHAction.Update, FSHResource.Carts)]
+   // [MustHavePermission(FSHAction.Update, FSHResource.Carts)]
     [OpenApiOperation("Update a cart.", "")]
     public async Task<ActionResult<Guid>> UpdateAsync(UpdateCartRequest request, Guid id)
     {
@@ -39,7 +42,7 @@ public class CartsController : VersionedApiController
     }
 
     [HttpDelete("{id:guid}")]
-    [MustHavePermission(FSHAction.Delete, FSHResource.Carts)]
+   // [MustHavePermission(FSHAction.Delete, FSHResource.Carts)]
     [OpenApiOperation("Delete a cart.", "")]
     public Task<Guid> DeleteAsync(Guid id)
     {

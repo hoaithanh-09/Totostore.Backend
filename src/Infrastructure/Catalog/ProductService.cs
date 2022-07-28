@@ -1,13 +1,7 @@
 ﻿using Ardalis.Specification.EntityFrameworkCore;
+using AutoMapper;
 using Finbuckle.MultiTenant;
-using Mapster;
-using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Totostore.Backend.Application.Catalog.Products;
 using Totostore.Backend.Application.Common.Models;
 using Totostore.Backend.Application.Common.Specification;
@@ -20,12 +14,12 @@ public class ProductService : IProductService
 {
     private readonly ApplicationDbContext _db;
     private readonly ITenantInfo _currentTenant;
-  //  private readonly IMapper _mapper;
-    public ProductService(ApplicationDbContext db, ITenantInfo currentTenant)
+    private readonly IMapper _mapper;
+    public ProductService(ApplicationDbContext db, ITenantInfo currentTenant, IMapper mapper)
     {
         _db = db;
         _currentTenant = currentTenant;
-     //   _mapper = mapper;
+        _mapper = mapper;
     }
 
 
@@ -69,11 +63,22 @@ public class ProductService : IProductService
         {
             query = query.Where(x => x.Rate >= request.Rate.Value && x.Rate <= 5);
         }
-        var data = await query.WithSpecification(spec)
-            .ProjectToType<ProductDetailsDto>()
-            .ToListAsync(cancellationToken);
+
+        var data = query.ToList().Select(x =>
+        {
+            var a = ProductDetailsDto.MapSomeThingCustom(_mapper, x);
+            return a;
+        }).ToList();
+        //var result = await item.WithSpecification(spec)
+        //   .ProjectToType<ProductDetailsDto>()
+        //   .ToListAsync(cancellationToken);
+        //data.Select(x =>
+        //{
+        //    var a = ProductDetailsDto.MapSomeThingCustom(_mapper, x);
+        //    return a;
+        //}).ToListAsync(cancellationToken);
         int count = await _db.Products
-            .CountAsync(cancellationToken);
+        .CountAsync(cancellationToken);
 
         return new PaginationResponse<ProductDetailsDto>(data, count, request.PageNumber, request.PageSize);
     }
