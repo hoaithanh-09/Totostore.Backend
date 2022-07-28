@@ -6,6 +6,7 @@ using Totostore.Backend.Application.Common.Exceptions;
 using Totostore.Backend.Application.Common.Mailing;
 using Totostore.Backend.Application.Identity;
 using Totostore.Backend.Application.Identity.Users;
+using Totostore.Backend.Domain.Catalog;
 using Totostore.Backend.Domain.Common;
 using Totostore.Backend.Domain.Identity;
 using Totostore.Backend.Shared.Authorization;
@@ -113,16 +114,25 @@ internal partial class UserService
             PhoneNumber = request.PhoneNumber,
             IsActive = true
         };
-
         var result = await _userManager.CreateAsync(user, request.Password);
         if (!result.Succeeded)
         {
             throw new InternalServerException(_localizer["Validation Errors Occurred."], result.GetErrors(_localizer));
         }
-
         await _userManager.AddToRoleAsync(user, FSHRoles.Basic);
-
-        var messages = new List<string> {string.Format(_localizer["User {0} Registered."], user.UserName)};
+        Random r = new Random();
+        var customer = new Customer()
+        {
+            Name = r.Next(10000).ToString(),
+            Dob = DateTime.Now,
+            Gender = true,
+            Mail = r.Next(10000).ToString(),
+            PhoneNumber = r.Next(10000).ToString(),
+            AddressId = new Guid(),
+            UserId = user.Id,
+        };
+        _db.Customers.Add(customer);
+        var messages = new List<string> { string.Format(_localizer["User {0} Registered."], user.UserName) };
 
         if (_securitySettings.RequireConfirmedAccount && !string.IsNullOrEmpty(user.Email))
         {
@@ -135,7 +145,7 @@ internal partial class UserService
                 Url = emailVerificationUri
             };
             var mailRequest = new MailRequest(
-                new List<string> {user.Email},
+                new List<string> { user.Email },
                 _localizer["Confirm Registration"],
                 _templateService.GenerateEmailTemplate("email-confirmation", eMailModel));
             _jobService.Enqueue(() => _mailService.SendAsync(mailRequest));
@@ -143,7 +153,7 @@ internal partial class UserService
         }
 
         await _events.PublishAsync(new ApplicationUserCreatedEvent(user.Id));
-
+        _db.SaveChangesAsync();
         return string.Join(Environment.NewLine, messages);
     }
 

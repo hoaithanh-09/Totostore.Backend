@@ -4,6 +4,10 @@ namespace Totostore.Backend.Domain.Catalog;
 
 public class Customer : AuditableEntity, IAggregateRoot
 {
+    public Customer()
+    {
+    }
+
     public Customer(string name, DateTime dob, bool gender, string mail, string phoneNumber, Guid addressId, string userId)
     {
         Name = name;
