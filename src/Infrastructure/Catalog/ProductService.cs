@@ -69,14 +69,7 @@ public class ProductService : IProductService
             var a = ProductDetailsDto.MapSomeThingCustom(_mapper, x);
             return a;
         }).ToList();
-        //var result = await item.WithSpecification(spec)
-        //   .ProjectToType<ProductDetailsDto>()
-        //   .ToListAsync(cancellationToken);
-        //data.Select(x =>
-        //{
-        //    var a = ProductDetailsDto.MapSomeThingCustom(_mapper, x);
-        //    return a;
-        //}).ToListAsync(cancellationToken);
+
         int count = await _db.Products
         .CountAsync(cancellationToken);
 

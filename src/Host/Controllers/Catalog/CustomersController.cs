@@ -5,7 +5,8 @@ namespace Totostore.Backend.Host.Controllers.Catalog;
 public class CustomersController : VersionedApiController
 {
     [HttpPost("search")]
-    [MustHavePermission(FSHAction.Search, FSHResource.Customers)]
+    [Authorize]
+    //[MustHavePermission(FSHAction.Search, FSHResource.Customers)]
     [OpenApiOperation("Search customers using available filters.", "")]
     public Task<PaginationResponse<CustomerDetailsDto>> SearchAsync(SearchCustomersRequest request)
     {
@@ -13,7 +14,8 @@ public class CustomersController : VersionedApiController
     }
 
     [HttpGet("{id:guid}")]
-    [MustHavePermission(FSHAction.View, FSHResource.Customers)]
+    [Authorize]
+    //  [MustHavePermission(FSHAction.View, FSHResource.Customers)]
     [OpenApiOperation("Get customer details.", "")]
     public Task<CustomerDetailsDto> GetAsync(Guid id)
     {
@@ -31,7 +33,8 @@ public class CustomersController : VersionedApiController
     }
 
     [HttpPut("{id:guid}")]
-    [MustHavePermission(FSHAction.Update, FSHResource.Customers)]
+    [Authorize]
+    //[MustHavePermission(FSHAction.Update, FSHResource.Customers)]
     [OpenApiOperation("Update a customer.", "")]
     public async Task<ActionResult<Guid>> UpdateAsync(UpdateCustomerRequest request, Guid id)
     {
@@ -41,7 +44,8 @@ public class CustomersController : VersionedApiController
     }
 
     [HttpDelete("{id:guid}")]
-    [MustHavePermission(FSHAction.Delete, FSHResource.Customers)]
+    [Authorize]
+    //  [MustHavePermission(FSHAction.Delete, FSHResource.Customers)]
     [OpenApiOperation("Delete a customer.", "")]
     public Task<Guid> DeleteAsync(Guid id)
     {
