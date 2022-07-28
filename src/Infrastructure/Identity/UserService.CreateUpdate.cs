@@ -8,8 +8,10 @@ using Totostore.Backend.Application.Identity;
 using Totostore.Backend.Application.Identity.Users;
 using Totostore.Backend.Domain.Catalog;
 using Totostore.Backend.Domain.Common;
+using Totostore.Backend.Domain.Common.Events;
 using Totostore.Backend.Domain.Identity;
 using Totostore.Backend.Shared.Authorization;
+using Z.EntityFramework.Plus;
 
 namespace Totostore.Backend.Infrastructure.Identity;
 
@@ -121,6 +123,7 @@ internal partial class UserService
         }
         await _userManager.AddToRoleAsync(user, FSHRoles.Basic);
         Random r = new Random();
+        var addressId = _db.Addresses.FirstOrDefault().Id;
         var customer = new Customer()
         {
             Name = r.Next(10000).ToString(),
@@ -128,12 +131,14 @@ internal partial class UserService
             Gender = true,
             Mail = r.Next(10000).ToString(),
             PhoneNumber = r.Next(10000).ToString(),
-            AddressId = new Guid(),
+            AddressId = addressId,
             UserId = user.Id,
         };
         _db.Customers.Add(customer);
-        var messages = new List<string> { string.Format(_localizer["User {0} Registered."], user.UserName) };
+        await _db.SaveChangesAsync();
+        QueryCacheManager.ExpireTag(typeof(Notification).FullName);
 
+        var messages = new List<string> { string.Format(_localizer["User {0} Registered."], user.UserName) };
         if (_securitySettings.RequireConfirmedAccount && !string.IsNullOrEmpty(user.Email))
         {
             // send verification email
@@ -153,7 +158,6 @@ internal partial class UserService
         }
 
         await _events.PublishAsync(new ApplicationUserCreatedEvent(user.Id));
-        _db.SaveChangesAsync();
         return string.Join(Environment.NewLine, messages);
     }
 

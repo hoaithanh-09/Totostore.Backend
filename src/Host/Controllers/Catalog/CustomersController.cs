@@ -21,7 +21,9 @@ public class CustomersController : VersionedApiController
     }
 
     [HttpPost]
-    [MustHavePermission(FSHAction.Create, FSHResource.Customers)]
+    [TenantIdHeader]
+    [AllowAnonymous]
+    // [MustHavePermission(FSHAction.Create, FSHResource.Customers)]
     [OpenApiOperation("Create a new customer.", "")]
     public Task<Guid> CreateAsync(CreateCustomerRequest request)
     {
